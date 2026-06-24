@@ -97,10 +97,10 @@ class QuizScene(Scene):
         topic_badge.next_to(title_group, DOWN, buff=0.3)
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
-        soal_group = wrap_text(soal, 26, config.frame_width - 0.8, buff=0.08)
+        soal_group = wrap_text(soal, 18, config.frame_width - 0.8, buff=0.08)
         soal_group.next_to(topic_badge, DOWN, buff=0.4)
         self.play(Write(soal_group), run_time=1.5)
-        self.wait(3.0)
+        self.wait(5.0)
         self.play(FadeOut(VGroup(title_group, topic_badge, soal_group)), run_time=0.5)
 
         # Phase 2: Pilihan (5-8 seconds)
@@ -138,7 +138,7 @@ class QuizScene(Scene):
         for g in option_group:
             self.play(FadeIn(g, shift=RIGHT * 0.5), run_time=0.4)
 
-        self.wait(2.0)
+        self.wait(4.0)
         self.play(FadeOut(VGroup(header2, option_group)), run_time=0.5)
 
         # Phase 3: Pembahasan (5-10 seconds)
@@ -158,18 +158,18 @@ class QuizScene(Scene):
             color=colors["accent"],
             fill_opacity=0.15,
         )
-        jawaban_content = Text(f"Jawaban: {jawaban_clean}", font_size=26, color=colors["main"])
+        jawaban_content = Text(f"Jawaban: {jawaban_clean}", font_size=18, color=colors["main"])
         jawaban_content.move_to(jawaban_card.get_center())
         jawaban_group = VGroup(jawaban_card, jawaban_content)
 
         jawaban_group.next_to(header3, DOWN, buff=0.4)
         self.play(Create(jawaban_card), Write(jawaban_content), run_time=1.0)
 
-        penjelasan_group = wrap_text(penjelasan, 22, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = wrap_text(penjelasan, 15, config.frame_width - 0.6, color="#636E72", buff=0.08)
         penjelasan_group.next_to(jawaban_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
 
-        self.wait(3.0)
+        self.wait(5.0)
         self.play(FadeOut(VGroup(header3, jawaban_group, penjelasan_group)), run_time=0.5)
 
 
@@ -195,10 +195,10 @@ class FaktaScene(Scene):
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
         # Phase 2: Fakta statement
-        fakta_group = wrap_text(soal, 28, config.frame_width - 0.6, weight=BOLD, buff=0.08)
+        fakta_group = wrap_text(soal, 20, config.frame_width - 0.6, weight=BOLD, buff=0.08)
         fakta_group.next_to(topic_badge, DOWN, buff=0.5)
         self.play(Write(fakta_group), run_time=1.5)
-        self.wait(3.0)
+        self.wait(5.0)
 
         # Phase 3: Explanation
         self.play(
@@ -207,10 +207,10 @@ class FaktaScene(Scene):
             run_time=1.0,
         )
 
-        penjelasan_group = wrap_text(penjelasan, 22, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = wrap_text(penjelasan, 15, config.frame_width - 0.6, color="#636E72", buff=0.08)
         penjelasan_group.next_to(fakta_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
-        self.wait(3.0)
+        self.wait(5.0)
         self.play(FadeOut(VGroup(fakta_group, penjelasan_group)), run_time=0.5)
 
 
@@ -236,10 +236,10 @@ class TipsScene(Scene):
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
         # Phase 2: Tip
-        tip_group = wrap_text(soal, 28, config.frame_width - 0.6, weight=BOLD, buff=0.08)
+        tip_group = wrap_text(soal, 20, config.frame_width - 0.6, weight=BOLD, buff=0.08)
         tip_group.next_to(topic_badge, DOWN, buff=0.5)
         self.play(Write(tip_group), run_time=1.5)
-        self.wait(3.0)
+        self.wait(5.0)
 
         # Phase 3: Explanation
         self.play(
@@ -248,8 +248,8 @@ class TipsScene(Scene):
             run_time=1.0,
         )
 
-        penjelasan_group = wrap_text(penjelasan, 22, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = wrap_text(penjelasan, 15, config.frame_width - 0.6, color="#636E72", buff=0.08)
         penjelasan_group.next_to(tip_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
-        self.wait(3.0)
+        self.wait(5.0)
         self.play(FadeOut(VGroup(tip_group, penjelasan_group)), run_time=0.5)
