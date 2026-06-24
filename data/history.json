@@ -5,5 +5,12 @@
     "topik": "deret_angka",
     "content_type": "fakta",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Jika x = 2 dan y = 3, berapakah nilai dari 4 - 2(x - y)^2?",
+    "jawaban": "B. -4",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-06-24"
   }
 ]
