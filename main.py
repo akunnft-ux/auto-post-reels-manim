@@ -166,8 +166,9 @@ Aturan:
 - Jawaban harus sesuai dengan salah satu pilihan (teks lengkap)
 - Jangan buat soal yang sama dengan soal-soal sebelumnya
 - Soal sebelumnya: {json.dumps(recent, ensure_ascii=False)}
-- Maksimal 3 kalimat untuk soal
-- Penjelasan maksimal 4 kalimat"""
+- Maksimal 2 kalimat PENDek untuk soal, total maksimal 120 karakter
+- Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
+- Setiap pilihan jawaban maksimal 50 karakter (setelah prefix A/B/C/D)"""
     elif content_type == "fakta":
         prompt = f"""Buat 1 konten fakta matematika yang mengejutkan dan jarang diketahui orang, terkait topik {topic_label}.
 
@@ -182,7 +183,8 @@ Format output JSON:
 Aturan:
 - Fakta harus BENAR secara matematis, jangan menyesatkan
 - Bahasa Indonesia
-- Maksimal 2 kalimat untuk fakta, penjelasan 3-4 kalimat"""
+- Maksimal 2 kalimat PENDek untuk fakta, total maksimal 120 karakter
+- Penjelasan maksimal 3 kalimat, total maksimal 180 karakter"""
     else:
         prompt = f"""Buat 1 tips/trik cepat matematika untuk persiapan CPNS/TKA/SNBT dengan topik {topic_label}.
 
@@ -197,7 +199,9 @@ Format output JSON:
 Aturan:
 - Tips harus BENAR secara matematis
 - Bahasa Indonesia
-- Maksimal 2 kalimat untuk soal, penjelasan 3-4 kalimat"""
+- Soal maksimal 120 karakter (1 kalimat pendek)
+- Setiap pilihan maksimal 40 karakter
+- Penjelasan maksimal 180 karakter (2-3 kalimat pendek)"""
 
     for attempt in range(1, max_retry + 1):
         try:
