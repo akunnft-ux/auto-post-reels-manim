@@ -33,5 +33,12 @@
     "topik": "peluang_statistika",
     "content_type": "tips",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Dua dadu dilempar bersamaan. Berapa peluang muncul mata dadu berjumlah 6 atau 9?",
+    "jawaban": "C. 7/36",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-06-24"
   }
 ]
