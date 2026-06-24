@@ -94,7 +94,7 @@ class QuizScene(Scene):
             group = VGroup(card, label, text)
             option_group.add(group)
 
-        option_group.arrange(DOWN, buff=0.25, aligned_center=True)
+        option_group.arrange(DOWN, buff=0.25, aligned_edge=LEFT)
         option_group.move_to(ORIGIN)
 
         for i, group in enumerate(option_group):
