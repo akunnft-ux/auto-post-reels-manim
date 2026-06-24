@@ -3,11 +3,11 @@ name: Auto Post Reels Manim
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 6 * * *"
+    - cron: "0 3 * * *"
+    - cron: "0 7 * * *"
     - cron: "0 10 * * *"
     - cron: "0 13 * * *"
     - cron: "0 16 * * *"
-    - cron: "0 19 * * *"
 
 concurrency:
   group: auto-post
