@@ -12,5 +12,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Jika f(x) = x² - 4 dan g(x) = √x, maka domain dari fungsi komposisi (f ∘ g)(x) adalah...",
+    "jawaban": "A. x ≥ 0",
+    "topik": "fungsi_grafik",
+    "content_type": "quiz",
+    "tanggal": "2026-06-24"
   }
 ]
