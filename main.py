@@ -138,6 +138,32 @@ def get_cta():
     return random.choice(CTA_POOL)
 
 
+SUPERSCRIPT_MAP = {
+    '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
+    '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
+    '+': '⁺', '-': '⁻', '=': '⁼', '(': '⁽', ')': '⁾',
+    'n': 'ⁿ', 'a': 'ᵃ', 'b': 'ᵇ', 'm': 'ᵐ',
+}
+
+
+def fix_math_notation(text: str) -> str:
+    text = re.sub(
+        r'\^\(([^)]+)\)',
+        lambda m: ''.join(SUPERSCRIPT_MAP.get(c, c) for c in m.group(1)),
+        text,
+    )
+    text = re.sub(
+        r'(?<=\w)\^(\d)',
+        lambda m: SUPERSCRIPT_MAP.get(m.group(1), m.group(1)),
+        text,
+    )
+    text = re.sub(r'(?<=\w)\^n', 'ⁿ', text)
+    text = re.sub(r'\bsqrt\b', '√', text)
+    text = re.sub(r'\bpi\b', 'π', text)
+    text = text.replace('>=', '≥').replace('<=', '≤').replace('!=', '≠')
+    return text
+
+
 def generate_narasi(topic, history, content_type, max_retry=3):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -168,7 +194,8 @@ Aturan:
 - Soal sebelumnya: {json.dumps(recent, ensure_ascii=False)}
 - Maksimal 2 kalimat PENDek untuk soal, total maksimal 120 karakter
 - Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
-- Setiap pilihan jawaban maksimal 50 karakter (setelah prefix A/B/C/D)"""
+- Setiap pilihan jawaban maksimal 50 karakter (setelah prefix A/B/C/D)
+- Gunakan Unicode untuk notasi matematika: x² bukan x^2, √4 bukan sqrt(4), π bukan pi, × bukan x, ≤ bukan <=, ≠ bukan !=, ≥ bukan >="""
     elif content_type == "fakta":
         prompt = f"""Buat 1 konten fakta matematika yang mengejutkan dan jarang diketahui orang, terkait topik {topic_label}.
 
@@ -184,7 +211,8 @@ Aturan:
 - Fakta harus BENAR secara matematis, jangan menyesatkan
 - Bahasa Indonesia
 - Maksimal 2 kalimat PENDek untuk fakta, total maksimal 120 karakter
-- Penjelasan maksimal 3 kalimat, total maksimal 180 karakter"""
+- Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
+- Gunakan Unicode untuk notasi matematika: x² bukan x^2, π bukan pi"""
     else:
         prompt = f"""Buat 1 tips/trik cepat matematika untuk persiapan CPNS/TKA/SNBT dengan topik {topic_label}.
 
@@ -201,7 +229,8 @@ Aturan:
 - Bahasa Indonesia
 - Soal maksimal 120 karakter (1 kalimat pendek)
 - Setiap pilihan maksimal 40 karakter
-- Penjelasan maksimal 180 karakter (2-3 kalimat pendek)"""
+- Penjelasan maksimal 180 karakter (2-3 kalimat pendek)
+- Gunakan Unicode untuk notasi matematika: x² bukan x^2, √ bukan sqrt, π bukan pi"""
 
     for attempt in range(1, max_retry + 1):
         try:
@@ -224,6 +253,10 @@ Aturan:
             if is_duplicate(narasi["soal"], history):
                 print(f"[WARN] Duplicate soalan, retry {attempt}")
                 continue
+            narasi["soal"] = fix_math_notation(narasi["soal"])
+            narasi["pilihan"] = [fix_math_notation(p) for p in narasi["pilihan"]]
+            narasi["jawaban"] = fix_math_notation(narasi["jawaban"])
+            narasi["penjelasan"] = fix_math_notation(narasi["penjelasan"])
             return narasi
         except (json.JSONDecodeError, KeyError, ValueError) as e:
             print(f"[WARN] Gemini attempt {attempt} failed: {e}")
