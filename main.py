@@ -555,12 +555,6 @@ def main():
 
         elapsed = time.time() - start_time
         print(f"\n[DONE] Completed in {elapsed:.1f}s")
-        notify_telegram(
-            f"[OK] Reels posted successfully!\n"
-            f"  Type: {content_type} | Topic: {topic}\n"
-            f"  Render: {render_time:.1f}s | Total: {elapsed:.1f}s\n"
-            f"  Post ID: {post_id}"
-        )
 
     except Exception as e:
         elapsed = time.time() - start_time
