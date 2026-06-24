@@ -1,1 +1,9 @@
-[]
+[
+  {
+    "soal": "Tahukah kamu bahwa jika kita menjumlahkan seluruh bilangan asli secara terus-menerus (1 + 2 + 3 + 4 + ...), hasilnya dalam konteks teori fisika kuantum bisa dianggap bernilai -1/12? Hal ini tampak mustahil karena deret tersebut terus membesar menuju tak hingga.",
+    "jawaban": "Hasil tersebut adalah -1/12 melalui regularisasi fungsi Zeta Riemann",
+    "topik": "deret_angka",
+    "content_type": "fakta",
+    "tanggal": "2026-06-24"
+  }
+]
