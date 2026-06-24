@@ -26,5 +26,12 @@
     "topik": "geometri",
     "content_type": "tips",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Dalam sebuah kelas, rata-rata nilai 10 siswa adalah 70. Jika satu siswa baru dengan nilai 90 masuk, berapakah rata-rata baru?",
+    "jawaban": "C. 70 + (90-70) / 11",
+    "topik": "peluang_statistika",
+    "content_type": "tips",
+    "tanggal": "2026-06-24"
   }
 ]
