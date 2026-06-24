@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+*.mp4
+*.png
+soal/
+data/*.json
+!data/history.json
+!data/mode.json
+.manim/
+media/
