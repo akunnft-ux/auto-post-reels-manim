@@ -61,11 +61,17 @@ def wrap_text(
 
 def create_topic_badge(topic: str, scene: Scene) -> VGroup:
     color = get_topic_color(topic)
-    badge = Rectangle(width=2.0, height=0.5, color=color, fill_opacity=0.2)
     label = Text(topic.replace("_", " ").title(), font_size=16, color=color)
-    group = VGroup(badge, label)
+    padding_x = 0.3
+    padding_y = 0.12
+    badge = Rectangle(
+        width=label.width + padding_x * 2,
+        height=label.height + padding_y * 2,
+        color=color,
+        fill_opacity=0.2,
+    )
     label.move_to(badge.get_center())
-    return group
+    return VGroup(badge, label)
 
 
 class QuizScene(Scene):
@@ -77,6 +83,7 @@ class QuizScene(Scene):
         penjelasan = data["penjelasan"]
         topic = data["topik"]
         colors = CONTENT_COLORS["quiz"]
+        self.camera.background_color = colors["bg"]
 
         # Phase 1: Soal (5-8 seconds)
         title_text = Text("QUIZ", font_size=32, color=colors["main"])
@@ -120,7 +127,8 @@ class QuizScene(Scene):
             )
             card.stroke_width = 1.5
             content = VGroup(label, opt_wrapped).arrange(RIGHT, buff=0.15, aligned_edge=UP)
-            content.move_to(card.get_center())
+            content.move_to(card.get_center(), aligned_edge=LEFT)
+            content.shift(LEFT * (card.width / 2 - 0.3))
             group = VGroup(card, content)
             option_group.add(group)
 
@@ -172,6 +180,7 @@ class FaktaScene(Scene):
         penjelasan = data["penjelasan"]
         topic = data["topik"]
         colors = CONTENT_COLORS["fakta"]
+        self.camera.background_color = colors["bg"]
 
         # Phase 1: Intro
         title_text = Text("FAKTA", font_size=32, color=colors["main"])
@@ -212,6 +221,7 @@ class TipsScene(Scene):
         penjelasan = data["penjelasan"]
         topic = data["topik"]
         colors = CONTENT_COLORS["tips"]
+        self.camera.background_color = colors["bg"]
 
         # Phase 1: Intro
         title_text = Text("TIPS", font_size=32, color=colors["main"])
