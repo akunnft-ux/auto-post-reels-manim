@@ -54,5 +54,12 @@
     "topik": "fungsi_grafik",
     "content_type": "tips",
     "tanggal": "2026-06-25"
+  },
+  {
+    "soal": "Jika kita menjumlahkan seluruh bilangan asli 1+2+3+... sampai tak hingga, hasilnya adalah -1/12.",
+    "jawaban": "-1/12",
+    "topik": "deret_angka",
+    "content_type": "fakta",
+    "tanggal": "2026-06-25"
   }
 ]
