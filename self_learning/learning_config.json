@@ -1,0 +1,51 @@
+{
+  "content_type_weights": {
+    "quiz": 1.0
+  },
+  "hook_templates": {
+    "quiz": [
+      "90% orang salah jawab soal ini. Coba kamu? 🧐",
+      "Kebanyakan orang terkecoh. Pasti kamu bisa! ⚡",
+      "Hanya 1 dari 10 orang yang benar. Ayo coba! 🎯",
+      "Jangan terkecoh dengan soalnya! 💡",
+      "Menurutmu jawabannya apa? Coba tebak dulu! 🤔"
+    ],
+    "fakta": [
+      "Ternyata selama ini kamu salah! Cek videonya ▶️",
+      "Fakta mengejutkan yang jarang orang tahu! 🤯",
+      "Mind blowing! Matematika itu tidak seperti yang kamu kira 🤯",
+      "Kebanyakan guru juga salah menjelaskan ini! 😱",
+      "Baru tahu setelah lulus? Simak ini! 🫠"
+    ],
+    "tips": [
+      "Hitung dalam 3 detik! Rahasianya di sini ⚡",
+      "Cara ini bikin kamu jago matematika dalam 1 menit! 🔥",
+      "Trik cepat yang gak diajarin di sekolah! 💡",
+      "Anti panik! Begini cara cepatnya ✅",
+      "Save video ini! Pasti berguna nanti 📌"
+    ]
+  },
+  "cta_pool": [
+    "Follow @matematikacpns untuk soal baru setiap hari! 🔥",
+    "Follow akun ini biar makin jago matematika! 📚",
+    "Jangan lupa follow buat latihan CPNS tiap hari! ✅",
+    "Follow for more daily soal + tips CPNS! 🚀",
+    "Klik follow biar gak ketinggalan soal baru! 📝"
+  ],
+  "hashtag_pool": [
+    "#SoalMatematika",
+    "#CPNS2026",
+    "#BelajarMatematika",
+    "#MatematikaDasar",
+    "#CPNS",
+    "#TIUCPNS",
+    "#SKDCPNS",
+    "#TryoutCPNS",
+    "#RuangBelajar",
+    "#Matematika",
+    "#LatihanCPNS",
+    "#StudiCPNS"
+  ],
+  "variable_rotation_index": 1,
+  "updated_at": "2026-06-25T13:33:15Z"
+}
