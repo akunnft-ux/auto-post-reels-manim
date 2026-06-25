@@ -145,6 +145,22 @@ SUPERSCRIPT_MAP = {
     'n': 'ⁿ', 'a': 'ᵃ', 'b': 'ᵇ', 'm': 'ᵐ',
 }
 
+FRACTION_MAP = {
+    '1/2': '½', '1/3': '⅓', '2/3': '⅔',
+    '1/4': '¼', '3/4': '¾',
+    '1/5': '⅕', '2/5': '⅖', '3/5': '⅗', '4/5': '⅘',
+    '1/6': '⅙', '5/6': '⅚',
+    '1/7': '⅐',
+    '1/8': '⅛', '3/8': '⅜', '5/8': '⅝', '7/8': '⅞',
+    '1/9': '⅑',
+    '1/10': '⅒',
+}
+
+SUBSCRIPT_MAP = {
+    '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
+    '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉',
+    '+': '₊', '-': '₋', '=': '₌', '(': '₍', ')': '₎',
+}
 
 def fix_math_notation(text: str) -> str:
     text = re.sub(
@@ -161,6 +177,16 @@ def fix_math_notation(text: str) -> str:
     text = re.sub(r'\bsqrt\b', '√', text)
     text = re.sub(r'\bpi\b', 'π', text)
     text = text.replace('>=', '≥').replace('<=', '≤').replace('!=', '≠')
+
+    def _replace_frac(m):
+        frac = m.group(0)
+        if frac in FRACTION_MAP:
+            return FRACTION_MAP[frac]
+        num, den = frac.split('/')
+        sup = ''.join(SUPERSCRIPT_MAP.get(c, c) for c in num)
+        sub = ''.join(SUBSCRIPT_MAP.get(c, c) for c in den)
+        return sup + '⁄' + sub
+    text = re.sub(r'(?<!\d)(\d+)/(\d+)(?!\d)', _replace_frac, text)
     return text
 
 
