@@ -351,18 +351,39 @@ def composite_bgm(video_path, output_path):
     bgm_path = random.choice(bgm_files)
     print(f"[INFO] Using BGM: {bgm_path}")
 
+    probe = subprocess.run(
+        ["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries", "stream=index", "-of", "csv=p=0", video_path],
+        capture_output=True, text=True, timeout=10,
+    )
+    has_audio = bool(probe.stdout.strip())
+
     temp_output = output_path + ".tmp.mp4"
-    cmd = [
-        "ffmpeg", "-y",
-        "-i", video_path,
-        "-i", bgm_path,
-        "-filter_complex", "[1:a]volume=0.15[a1];[0:a][a1]amix=inputs=2:duration=first",
-        "-c:v", "copy",
-        "-c:a", "aac",
-        "-shortest",
-        "-movflags", "+faststart",
-        temp_output,
-    ]
+    if has_audio:
+        cmd = [
+            "ffmpeg", "-y",
+            "-i", video_path,
+            "-i", bgm_path,
+            "-filter_complex", "[1:a]volume=0.15[a1];[0:a][a1]amix=inputs=2:duration=first",
+            "-c:v", "copy",
+            "-c:a", "aac",
+            "-shortest",
+            "-movflags", "+faststart",
+            temp_output,
+        ]
+    else:
+        cmd = [
+            "ffmpeg", "-y",
+            "-i", video_path,
+            "-i", bgm_path,
+            "-filter_complex", "[1:a]volume=0.15[a1]",
+            "-map", "0:v:0",
+            "-map", "[a1]",
+            "-c:v", "copy",
+            "-c:a", "aac",
+            "-shortest",
+            "-movflags", "+faststart",
+            temp_output,
+        ]
     try:
         subprocess.run(cmd, check=True, capture_output=True, text=True, timeout=120)
         shutil.move(temp_output, output_path)
