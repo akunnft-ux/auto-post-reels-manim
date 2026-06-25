@@ -250,6 +250,20 @@ Aturan:
             if narasi["jawaban"] not in narasi["pilihan"]:
                 print(f"[WARN] Jawaban not in pilihan, retry {attempt}")
                 continue
+
+            jawaban_letter = re.match(r'^([A-D])', narasi["jawaban"])
+            if jawaban_letter:
+                penjelasan_letter = re.search(
+                    r'(?:jawaban|kunci|benar)\s*(?:adalah|:|\s)*\s*([A-D])\b',
+                    narasi["penjelasan"],
+                )
+                if penjelasan_letter and jawaban_letter.group(1) != penjelasan_letter.group(1):
+                    print(
+                        f"[WARN] Label mismatch: jawaban='{jawaban_letter.group(1)}' "
+                        f"vs penjelasan='{penjelasan_letter.group(1)}', retry {attempt}"
+                    )
+                    continue
+
             if is_duplicate(narasi["soal"], history):
                 print(f"[WARN] Duplicate soalan, retry {attempt}")
                 continue

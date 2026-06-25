@@ -147,8 +147,10 @@ class QuizScene(Scene):
         self.play(Write(header3), run_time=0.8)
 
         jawaban_clean = jawaban
+        jawaban_label_prefix = ""
         for label in ["A.", "B.", "C.", "D.", "A", "B", "C", "D"]:
             if jawaban_clean.startswith(label):
+                jawaban_label_prefix = label.rstrip(".")
                 jawaban_clean = jawaban_clean[len(label):].strip()
                 break
 
@@ -158,7 +160,12 @@ class QuizScene(Scene):
             color=colors["accent"],
             fill_opacity=0.15,
         )
-        jawaban_content = Text(f"Jawaban: {jawaban_clean}", font_size=18, color=colors["main"])
+        if jawaban_label_prefix:
+            label_part = Text(f"{jawaban_label_prefix}.", font_size=24, color=colors["accent"], weight=BOLD)
+            text_part = Text(jawaban_clean, font_size=18, color=colors["main"])
+            jawaban_content = VGroup(label_part, text_part).arrange(RIGHT, buff=0.1)
+        else:
+            jawaban_content = Text(f"Jawaban: {jawaban_clean}", font_size=18, color=colors["main"])
         jawaban_content.move_to(jawaban_card.get_center())
         jawaban_group = VGroup(jawaban_card, jawaban_content)
 
