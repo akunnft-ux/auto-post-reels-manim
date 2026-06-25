@@ -47,5 +47,12 @@
     "topik": "geometri",
     "content_type": "tips",
     "tanggal": "2026-06-24"
+  },
+  {
+    "soal": "Tentukan titik puncak dari fungsi kuadrat f(x) = ax² + bx + c.",
+    "jawaban": "C. Gunakan x = -b/2a dan y = f(-b/2a)",
+    "topik": "fungsi_grafik",
+    "content_type": "tips",
+    "tanggal": "2026-06-25"
   }
 ]
