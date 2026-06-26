@@ -89,5 +89,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-06-25"
+  },
+  {
+    "soal": "Jika f(x) = x² - 9 dan g(x) = x - 3, berapakah nilai dari f(x)/g(x) untuk x = 3?",
+    "jawaban": "C. Tidak terdefinisi",
+    "topik": "fungsi_grafik",
+    "content_type": "quiz",
+    "tanggal": "2026-06-26"
   }
 ]
