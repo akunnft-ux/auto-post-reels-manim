@@ -110,5 +110,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-06-26"
+  },
+  {
+    "soal": "Sebuah lingkaran berada di dalam persegi dengan luas 16 cm². Berapakah luas lingkaran tersebut?",
+    "jawaban": "C. π cm²",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-06-26"
   }
 ]
