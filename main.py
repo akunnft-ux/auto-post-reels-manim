@@ -191,6 +191,43 @@ def fix_math_notation(text: str) -> str:
     return text
 
 
+def _verify_answer_factually(soal, pilihan, jawaban, client, content_type):
+    """Verify answer correctness via independent Gemini re-evaluation (quiz only)."""
+    if content_type != "quiz":
+        return True
+
+    jawaban_letter = re.match(r'^([A-D])', jawaban)
+    if not jawaban_letter:
+        return True
+
+    prompt = f"""Selesaikan soal matematika berikut secara mandiri. JANGAN terpengaruh jawaban siapapun.
+
+SOAL: {soal}
+PILIHAN:
+{chr(10).join(pilihan)}
+
+Kerjakan langkah demi langkah, lalu berikan jawaban dalam format JSON:
+{{"jawaban_benar": "huruf (A, B, C, atau D)"}}"""
+
+    try:
+        response = client.models.generate_content(
+            model="gemini-3.1-flash-lite",
+            contents=prompt,
+            config={"response_mime_type": "application/json"},
+        )
+        result = json.loads(response.text)
+        verified = result.get("jawaban_benar", "").strip().upper()
+        if verified in ("A", "B", "C", "D"):
+            match = verified == jawaban_letter.group(1)
+            if not match:
+                print(f"  [VERIFY] Independent answer={verified} vs original={jawaban_letter.group(1)} — MISMATCH")
+            return match
+        return True
+    except Exception as e:
+        print(f"  [VERIFY] Error: {e}")
+        return True
+
+
 def generate_narasi(topic, history, content_type, max_retry=3):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -290,6 +327,11 @@ Aturan:
                         f"vs penjelasan='{penjelasan_letter.group(1)}', retry {attempt}"
                     )
                     continue
+
+            # VALIDASI 1: Fakta verification — independent Gemini re-evaluation
+            if not _verify_answer_factually(narasi["soal"], narasi["pilihan"], narasi["jawaban"], client, content_type):
+                print(f"[WARN] Fakta answer mismatch, retry {attempt}")
+                continue
 
             if is_duplicate(narasi["soal"], history):
                 print(f"[WARN] Duplicate soalan, retry {attempt}")
@@ -683,6 +725,14 @@ def main():
         caption = build_caption(narasi, topic, content_type, hook)
         compliance_check(caption)
         print(f"  Caption OK ({len(caption)} chars)")
+
+        print("[STEP] 4b/9 Pre-render answer verification")
+        verify_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
+        if not _verify_answer_factually(narasi["soal"], narasi["pilihan"], narasi["jawaban"], verify_client, content_type):
+            print("[WARN] Second verification failed. Regenerating content...")
+            narasi = generate_narasi(topic, history, content_type, max_retry=5)
+            caption = build_caption(narasi, topic, content_type, hook)
+            compliance_check(caption)
 
         print("[STEP] 5/9 Render Manim animation scene")
         raw_video = os.path.join(tmpdir, "raw_scene.mp4")
