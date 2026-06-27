@@ -208,5 +208,12 @@
     "topik": "peluang_statistika",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Tentukan angka berikutnya dari deret: 1, 1, 2, 6, 24, x.",
+    "jawaban": "A. 120",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
