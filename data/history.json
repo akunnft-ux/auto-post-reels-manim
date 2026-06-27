@@ -124,5 +124,12 @@
     "topik": "fungsi_grafik",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Rata-rata 5 bilangan adalah 10. Jika satu bilangan diambil, rata-ratanya menjadi 8. Berapakah bilangan yang diambil tersebut?",
+    "jawaban": "A. 18",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
