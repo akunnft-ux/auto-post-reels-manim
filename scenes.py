@@ -148,8 +148,8 @@ class QuizScene(Scene):
 
         soal_eq = render_wrapped_latex(
             soal_latex,
-            max_width=config.frame_width,
-            font_size=32,
+            max_width=config.frame_width - 0.6,
+            font_size=26,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
