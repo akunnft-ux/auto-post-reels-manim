@@ -264,9 +264,10 @@ Format output JSON:
   "pilihan": ["A. ...", "B. ...", "C. ...", "D. ..."],
   "jawaban": "A. ...",
   "penjelasan": "pembahasan singkat mengapa jawaban itu benar dan yang lain salah",
-  "soal_latex": "\\\\sqrt{{x}} + \\\\frac{{1}}{{2}}",
-  "jawaban_latex": "\\\\frac{{1}}{{2}}",
-  "pilihan_latex": ["A. ...", "B. ...", "C. ...", "D. ..."]
+  "soal_latex": "\\\\text{{Tentukan nilai x dari }} \\\\sqrt{{x+1}} = 3",
+  "jawaban_latex": "x = 8",
+  "pilihan_latex": ["A. 5", "B. 6", "C. 7", "D. 8"],
+  "penjelasan_latex": "\\\\text{{Diketahui }} \\\\sqrt{{x+1}} = 3 \\\\text{{, kuadratkan: }} x+1 = 9 \\\\text{{, maka }} x = 8"
 }}
 
 Aturan:
@@ -279,10 +280,13 @@ Aturan:
 - Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
 - Setiap pilihan jawaban maksimal 50 karakter (setelah prefix A/B/C/D)
 - Gunakan Unicode untuk notasi matematika: x² bukan x^2, √4 bukan sqrt(4), π bukan pi, × bukan x, ≤ bukan <=, ≠ bukan !=, ≥ bukan >=
-- TAMBAHKAN field soal_latex, jawaban_latex, pilihan_latex untuk versi LaTeX dari field plain yang sama
-- soal_latex dan jawaban_latex: string LaTeX murni tanpa prefix A/B/C/D. Hanya gunakan \\sqrt{{}}, \\sqrt[n]{{}}, \\frac{{}}{{}}, ^, _ — standar amsmath, jangan pake custom macro
-- pilihan_latex: list dengan 4 item, isi LaTeX murni (setelah prefix huruf). Contoh: "A. \\sqrt{{2}}" (pertahankan prefix A. B. C. D.)
-- Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{x}} ditulis sebagai "\\\\sqrt{{x}}" dalam JSON
+- TAMBAHKAN field soal_latex, jawaban_latex, pilihan_latex, penjelasan_latex
+- soal_latex: LaTeX dari teks soal, termasuk perintah soal menggunakan \\text{{}}. Contoh: "\\\\text{{Tentukan nilai x dari }} \\\\sqrt{{x+1}} = 3"
+- jawaban_latex: string LaTeX murni (hanya persamaan, tanpa prefix huruf)
+- pilihan_latex: list 4 item LaTeX, pertahankan prefix "A. " dll. Contoh: "A. \\\\sqrt{{2}}"
+- penjelasan_latex: LaTeX dari pembahasan, gunakan \\text{{}} untuk teks naratif. Contoh: "\\\\text{{Diketahui }} \\\\sqrt{{x+1}} = 3 \\\\text{{, maka }} x = 8"
+- Hanya gunakan \\sqrt{{}}, \\sqrt[n]{{}}, \\frac{{}}{{}}, ^, _ — standar amsmath
+- Backslash di JSON: tulis \\\\ untuk setiap backslash
 - Gunakan huruf x sebagai variabel utama yang perlu disorot nanti di video"""
     elif content_type == "fakta":
         prompt = f"""Buat 1 konten fakta matematika yang mengejutkan dan jarang diketahui orang, terkait topik {topic_label}.
@@ -294,7 +298,8 @@ Format output JSON:
   "jawaban": "fakta yang benar (sesuai pilihan yang paling tepat)",
   "penjelasan": "penjelasan ilmiah/detail dari fakta tersebut (2-3 kalimat)",
   "soal_latex": "\\\\sqrt{{2}} \\\\approx 1.414",
-  "jawaban_latex": "\\\\sqrt{{2}} \\\\approx 1.414"
+  "jawaban_latex": "\\\\sqrt{{2}} \\\\approx 1.414",
+  "penjelasan_latex": "\\\\text{{Nilai }} \\\\sqrt{{2}} \\\\text{{ adalah sekitar 1.414}}"
 }}
 
 Aturan:
@@ -303,7 +308,7 @@ Aturan:
 - Maksimal 2 kalimat PENDek untuk fakta, total maksimal 120 karakter
 - Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
 - Gunakan Unicode untuk notasi matematika: x² bukan x^2, π bukan pi
-- TAMBAHKAN soal_latex dan jawaban_latex (string LaTeX murni)
+- TAMBAHKAN soal_latex, jawaban_latex, dan penjelasan_latex (string LaTeX murni, gunakan \\text{{}} untuk teks naratif)
 - Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{2}} ditulis sebagai "\\\\sqrt{{2}}" dalam JSON"""
     else:
         prompt = f"""Buat 1 tips/trik cepat matematika untuk persiapan CPNS/TKA/SNBT dengan topik {topic_label}.
@@ -315,7 +320,8 @@ Format output JSON:
   "jawaban": "C. Cara cepat (trikinya)",
   "penjelasan": "penjelasan trik cepat langkah demi langkah (2-3 kalimat)",
   "soal_latex": "\\\\sqrt{{144}} + \\\\sqrt{{25}}",
-  "jawaban_latex": "\\\\text{{Cara cepat}}"
+  "jawaban_latex": "\\\\text{{Cara cepat}}",
+  "penjelasan_latex": "\\\\text{{Pertama hitung }} \\\\sqrt{{144}} = 12"
 }}
 
 Aturan:
@@ -325,9 +331,10 @@ Aturan:
 - Setiap pilihan maksimal 40 karakter
 - Penjelasan maksimal 180 karakter (2-3 kalimat pendek)
 - Gunakan Unicode untuk notasi matematika: x² bukan x^2, √ bukan sqrt, π bukan pi
-- TAMBAHKAN soal_latex dan jawaban_latex (string LaTeX murni)
+- TAMBAHKAN soal_latex, jawaban_latex, dan penjelasan_latex (string LaTeX murni)
 - soal_latex: LaTeX dari teks soal
 - jawaban_latex: LaTeX dari jawaban (cukup teks triknya, tanpa prefix C.)
+- penjelasan_latex: LaTeX dari penjelasan, gunakan \\text{{}} untuk teks naratif
 - Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{144}} ditulis sebagai "\\\\sqrt{{144}}" dalam JSON"""
 
     for attempt in range(1, max_retry + 1):
@@ -338,7 +345,7 @@ Aturan:
                 config={"response_mime_type": "application/json"},
             )
             narasi = json.loads(response.text)
-            required = {"soal", "pilihan", "jawaban", "penjelasan", "soal_latex", "jawaban_latex"}
+            required = {"soal", "pilihan", "jawaban", "penjelasan", "soal_latex", "jawaban_latex", "penjelasan_latex"}
             if not all(k in narasi for k in required):
                 print(f"[WARN] Missing fields, retry {attempt}")
                 continue
@@ -378,8 +385,10 @@ Aturan:
             # Sanitize and validate LaTeX fields
             narasi["soal_latex"] = _sanitize_latex(narasi["soal_latex"])
             narasi["jawaban_latex"] = _sanitize_latex(narasi["jawaban_latex"])
+            narasi["penjelasan_latex"] = _sanitize_latex(narasi["penjelasan_latex"])
             latex_ok = _validate_latex(narasi["soal_latex"])
             latex_ok = _validate_latex(narasi["jawaban_latex"]) and latex_ok
+            latex_ok = _validate_latex(narasi["penjelasan_latex"]) and latex_ok
             if content_type == "quiz":
                 if "pilihan_latex" not in narasi or len(narasi["pilihan_latex"]) != 4:
                     print(f"[WARN] Missing pilihan_latex, retry {attempt}")
@@ -428,6 +437,7 @@ def render_manim_scene(narasi, topic, content_type, output_path):
             "soal_latex": narasi.get("soal_latex", narasi["soal"]),
             "jawaban_latex": narasi.get("jawaban_latex", narasi["jawaban"]),
             "pilihan_latex": narasi.get("pilihan_latex", narasi["pilihan"]),
+            "penjelasan_latex": narasi.get("penjelasan_latex", narasi["penjelasan"]),
         }
         instance.render()
 

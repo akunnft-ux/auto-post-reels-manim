@@ -97,6 +97,7 @@ class QuizScene(Scene):
         soal_latex = data.get("soal_latex", soal)
         jawaban_latex = data.get("jawaban_latex", jawaban)
         pilihan_latex = data.get("pilihan_latex", pilihan)
+        penjelasan_latex = data.get("penjelasan_latex", penjelasan)
 
         # Phase 1: Soal (5-8 seconds)
         title_text = Text("QUIZ", font_size=32, color=colors["main"])
@@ -208,7 +209,14 @@ class QuizScene(Scene):
         jawaban_group.next_to(header3, DOWN, buff=0.4)
         self.play(Create(jawaban_card), Write(jawaban_content), run_time=1.0)
 
-        penjelasan_group = wrap_text(penjelasan, 18, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = render_equation(
+            penjelasan_latex,
+            max_width=config.frame_width - 0.6,
+            font_size=18,
+            color="#636E72",
+            highlight_color=colors["accent"],
+            highlight_substrings=["x"],
+        )
         penjelasan_group.next_to(jawaban_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
 
