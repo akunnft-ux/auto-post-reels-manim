@@ -113,7 +113,7 @@ class QuizScene(Scene):
         soal_eq = render_equation(
             soal_latex,
             max_width=config.frame_width - 0.8,
-            font_size=30,
+            font_size=26,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -194,7 +194,7 @@ class QuizScene(Scene):
             text_part = render_equation(
                 jawaban_latex,
                 max_width=config.frame_width - 1.5,
-                font_size=22,
+                font_size=26,
                 color=colors["main"],
                 highlight_color=colors["accent"],
                 highlight_substrings=["x"],
@@ -208,7 +208,7 @@ class QuizScene(Scene):
         jawaban_group.next_to(header3, DOWN, buff=0.4)
         self.play(Create(jawaban_card), Write(jawaban_content), run_time=1.0)
 
-        penjelasan_group = wrap_text(penjelasan, 15, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = wrap_text(penjelasan, 18, config.frame_width - 0.6, color="#636E72", buff=0.08)
         penjelasan_group.next_to(jawaban_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
 
@@ -243,7 +243,7 @@ class FaktaScene(Scene):
         fakta_group = render_equation(
             soal_latex,
             max_width=config.frame_width - 0.6,
-            font_size=28,
+            font_size=26,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -293,7 +293,7 @@ class TipsScene(Scene):
         tip_group = render_equation(
             soal_latex,
             max_width=config.frame_width - 0.6,
-            font_size=28,
+            font_size=26,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
