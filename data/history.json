@@ -138,5 +138,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Sebuah kubus memiliki rusuk 6 cm. Berapakah jarak titik sudut ke pusat kubus tersebut?",
+    "jawaban": "B. 3√3 cm",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
