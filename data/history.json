@@ -187,5 +187,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Dalam sebuah kotak terdapat 3 kelereng merah dan 2 putih. Jika 2 kelereng diambil satu per satu tanpa pengembalian, berapa peluang keduanya berbeda warna?",
+    "jawaban": "A. 0,6",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
