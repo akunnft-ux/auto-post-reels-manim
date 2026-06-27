@@ -201,5 +201,12 @@
     "topik": "geometri",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Rata-rata 5 data adalah 6. Jika ditambah satu data x, rata-ratanya menjadi 7. Berapakah nilai x?",
+    "jawaban": "B. 12",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
