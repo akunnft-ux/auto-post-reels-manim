@@ -114,7 +114,7 @@ class QuizScene(Scene):
         soal_eq = render_equation(
             soal_latex,
             max_width=config.frame_width - 0.8,
-            font_size=26,
+            font_size=28,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -212,7 +212,7 @@ class QuizScene(Scene):
         penjelasan_group = render_equation(
             penjelasan_latex,
             max_width=config.frame_width - 0.6,
-            font_size=18,
+            font_size=26,
             color="#636E72",
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
