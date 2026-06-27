@@ -1,3 +1,4 @@
+import re
 from manim import *
 
 # Portrait 9:16 configuration
@@ -36,6 +37,40 @@ def render_equation(latex_str, max_width, font_size=40, color="#2D3436", highlig
     if eq.width > max_width:
         eq.scale_to_fit_width(max_width)
     return eq
+
+
+def render_wrapped_latex(latex_str, max_width, font_size=26, color="#2D3436",
+                          highlight_color=None, highlight_substrings=None, line_buff=0.08):
+    single = MathTex(latex_str, font_size=font_size, color=color)
+    if single.width <= max_width:
+        if highlight_color and highlight_substrings:
+            single.set_color_by_tex_to_color_map({s: highlight_color for s in highlight_substrings})
+        return single
+
+    parts = [p for p in re.split(r'(\\text\{[^}]*\})', latex_str) if p]
+    lines = []
+    current = ""
+    for part in parts:
+        test = current + part
+        test_me = MathTex(test, font_size=font_size)
+        if test_me.width > max_width and current:
+            lines.append(current)
+            current = part
+        else:
+            current = test
+    if current:
+        lines.append(current)
+
+    mobs = []
+    for line in lines:
+        eq = MathTex(line, font_size=font_size, color=color)
+        if highlight_color and highlight_substrings:
+            eq.set_color_by_tex_to_color_map({s: highlight_color for s in highlight_substrings})
+        if eq.width > max_width:
+            eq.scale_to_fit_width(max_width)
+        mobs.append(eq)
+
+    return VGroup(*mobs).arrange(DOWN, buff=line_buff, aligned_edge=LEFT)
 
 
 def wrap_text(
@@ -111,7 +146,7 @@ class QuizScene(Scene):
         topic_badge.next_to(title_group, DOWN, buff=0.3)
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
-        soal_eq = render_equation(
+        soal_eq = render_wrapped_latex(
             soal_latex,
             max_width=config.frame_width - 0.8,
             font_size=28,
@@ -209,7 +244,7 @@ class QuizScene(Scene):
         jawaban_group.next_to(header3, DOWN, buff=0.4)
         self.play(Create(jawaban_card), Write(jawaban_content), run_time=1.0)
 
-        penjelasan_group = render_equation(
+        penjelasan_group = render_wrapped_latex(
             penjelasan_latex,
             max_width=config.frame_width - 0.6,
             font_size=26,
