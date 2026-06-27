@@ -29,6 +29,15 @@ def get_topic_color(topic: str) -> str:
     return TOPIC_COLORS.get(topic, "#868E96")
 
 
+def render_equation(latex_str, max_width, font_size=40, color="#2D3436", highlight_color=None, highlight_substrings=None):
+    eq = MathTex(latex_str, font_size=font_size, color=color)
+    if highlight_color and highlight_substrings:
+        eq.set_color_by_tex_to_color_map({s: highlight_color for s in highlight_substrings})
+    if eq.width > max_width:
+        eq.scale_to_fit_width(max_width)
+    return eq
+
+
 def wrap_text(
     text: str,
     font_size: int,
@@ -85,6 +94,10 @@ class QuizScene(Scene):
         colors = CONTENT_COLORS["quiz"]
         self.camera.background_color = colors["bg"]
 
+        soal_latex = data.get("soal_latex", soal)
+        jawaban_latex = data.get("jawaban_latex", jawaban)
+        pilihan_latex = data.get("pilihan_latex", pilihan)
+
         # Phase 1: Soal (5-8 seconds)
         title_text = Text("QUIZ", font_size=32, color=colors["main"])
         title_sub = Text("CHALLENGE", font_size=28, color=colors["accent"])
@@ -97,11 +110,18 @@ class QuizScene(Scene):
         topic_badge.next_to(title_group, DOWN, buff=0.3)
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
-        soal_group = wrap_text(soal, 18, config.frame_width - 0.8, buff=0.08)
-        soal_group.next_to(topic_badge, DOWN, buff=0.4)
-        self.play(Write(soal_group), run_time=1.5)
+        soal_eq = render_equation(
+            soal_latex,
+            max_width=config.frame_width - 0.8,
+            font_size=30,
+            color=colors["main"],
+            highlight_color=colors["accent"],
+            highlight_substrings=["x"],
+        )
+        soal_eq.next_to(topic_badge, DOWN, buff=0.4)
+        self.play(Write(soal_eq), run_time=1.5)
         self.wait(5.0)
-        self.play(FadeOut(VGroup(title_group, topic_badge, soal_group)), run_time=0.5)
+        self.play(FadeOut(VGroup(title_group, topic_badge, soal_eq)), run_time=0.5)
 
         # Phase 2: Pilihan (5-8 seconds)
         header2 = Text("PILIHAN", font_size=32, color=colors["main"])
@@ -111,14 +131,25 @@ class QuizScene(Scene):
         option_labels = ["A", "B", "C", "D"]
         option_group = VGroup()
         for i, opt in enumerate(pilihan):
+            opt_latex = pilihan_latex[i] if i < len(pilihan_latex) else opt
             opt_clean = opt
             if opt_clean.startswith(f"{option_labels[i]}."):
                 opt_clean = opt_clean[2:].strip()
             elif opt_clean.startswith(option_labels[i]):
                 opt_clean = opt_clean[1:].strip()
-            opt_wrapped = wrap_text(opt_clean, 22, config.frame_width - 2.0, buff=0.06)
+            opt_latex_clean = opt_latex
+            if opt_latex_clean.startswith(f"{option_labels[i]}."):
+                opt_latex_clean = opt_latex_clean[2:].strip()
+            elif opt_latex_clean.startswith(option_labels[i]):
+                opt_latex_clean = opt_latex_clean[1:].strip()
+            opt_rendered = render_equation(
+                opt_latex_clean,
+                max_width=config.frame_width - 2.0,
+                font_size=26,
+                color=colors["main"],
+            )
             label = Text(f"{option_labels[i]}.", font_size=24, color=colors["accent"], weight=BOLD)
-            card_h = max(opt_wrapped.height + 0.3, 0.5)
+            card_h = max(opt_rendered.height + 0.3, 0.5)
             card = Rectangle(
                 width=config.frame_width - 0.6,
                 height=card_h,
@@ -126,7 +157,7 @@ class QuizScene(Scene):
                 fill_opacity=0.08,
             )
             card.stroke_width = 1.5
-            content = VGroup(label, opt_wrapped).arrange(RIGHT, buff=0.15, aligned_edge=UP)
+            content = VGroup(label, opt_rendered).arrange(RIGHT, buff=0.15, aligned_edge=UP)
             content.move_to(card.get_center(), aligned_edge=LEFT)
             content.shift(LEFT * (card.width / 2 - 0.3))
             group = VGroup(card, content)
@@ -146,23 +177,28 @@ class QuizScene(Scene):
         header3.to_edge(UP, buff=0.6)
         self.play(Write(header3), run_time=0.8)
 
-        jawaban_clean = jawaban
         jawaban_label_prefix = ""
         for label in ["A.", "B.", "C.", "D.", "A", "B", "C", "D"]:
-            if jawaban_clean.startswith(label):
+            if jawaban.startswith(label):
                 jawaban_label_prefix = label.rstrip(".")
-                jawaban_clean = jawaban_clean[len(label):].strip()
                 break
 
         jawaban_card = Rectangle(
             width=config.frame_width - 0.6,
-            height=0.7,
+            height=0.9,
             color=colors["accent"],
             fill_opacity=0.15,
         )
         if jawaban_label_prefix:
             label_part = Text(f"{jawaban_label_prefix}.", font_size=24, color=colors["accent"], weight=BOLD)
-            text_part = Text(jawaban_clean, font_size=18, color=colors["main"])
+            text_part = render_equation(
+                jawaban_latex,
+                max_width=config.frame_width - 1.5,
+                font_size=22,
+                color=colors["main"],
+                highlight_color=colors["accent"],
+                highlight_substrings=["x"],
+            )
             jawaban_content = VGroup(label_part, text_part).arrange(RIGHT, buff=0.1)
         else:
             jawaban_content = Text(f"Jawaban: {jawaban_clean}", font_size=18, color=colors["main"])
@@ -189,6 +225,8 @@ class FaktaScene(Scene):
         colors = CONTENT_COLORS["fakta"]
         self.camera.background_color = colors["bg"]
 
+        soal_latex = data.get("soal_latex", soal)
+
         # Phase 1: Intro
         title_text = Text("FAKTA", font_size=32, color=colors["main"])
         title_sub = Text("Mind blowing!", font_size=24, color=colors["accent"])
@@ -202,7 +240,14 @@ class FaktaScene(Scene):
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
         # Phase 2: Fakta statement
-        fakta_group = wrap_text(soal, 20, config.frame_width - 0.6, weight=BOLD, buff=0.08)
+        fakta_group = render_equation(
+            soal_latex,
+            max_width=config.frame_width - 0.6,
+            font_size=28,
+            color=colors["main"],
+            highlight_color=colors["accent"],
+            highlight_substrings=["x"],
+        )
         fakta_group.next_to(topic_badge, DOWN, buff=0.5)
         self.play(Write(fakta_group), run_time=1.5)
         self.wait(5.0)
@@ -230,6 +275,8 @@ class TipsScene(Scene):
         colors = CONTENT_COLORS["tips"]
         self.camera.background_color = colors["bg"]
 
+        soal_latex = data.get("soal_latex", soal)
+
         # Phase 1: Intro
         title_text = Text("TIPS", font_size=32, color=colors["main"])
         title_sub = Text("Catat baik-baik!", font_size=24, color=colors["accent"])
@@ -243,7 +290,14 @@ class TipsScene(Scene):
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
         # Phase 2: Tip
-        tip_group = wrap_text(soal, 20, config.frame_width - 0.6, weight=BOLD, buff=0.08)
+        tip_group = render_equation(
+            soal_latex,
+            max_width=config.frame_width - 0.6,
+            font_size=28,
+            color=colors["main"],
+            highlight_color=colors["accent"],
+            highlight_substrings=["x"],
+        )
         tip_group.next_to(topic_badge, DOWN, buff=0.5)
         self.play(Write(tip_group), run_time=1.5)
         self.wait(5.0)

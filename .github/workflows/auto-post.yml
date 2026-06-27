@@ -31,7 +31,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y -qq ffmpeg texlive-latex-base texlive-latex-extra libpango1.0-dev
+          sudo apt-get install -y -qq ffmpeg texlive-latex-base texlive-latex-extra texlive-fonts-extra dvisvgm libpango1.0-dev
 
       - name: Install Python dependencies
         run: |

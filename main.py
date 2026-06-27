@@ -17,7 +17,7 @@ import requests
 HISTORY_FILE = "data/history.json"
 MODE_FILE = "data/mode.json"
 MAX_HISTORY_ITEMS = 180
-MANIM_TIMEOUT = 480
+MANIM_TIMEOUT = 600  # Increased from 480 for LaTeX compile overhead
 LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
 
 CONTENT_TYPES = ["quiz", "fakta", "tips"]
@@ -228,6 +228,22 @@ Kerjakan langkah demi langkah, lalu berikan jawaban dalam format JSON:
         return True
 
 
+def _sanitize_latex(latex_str):
+    """Fix common double-escaping from Gemini JSON output."""
+    return latex_str.replace("\\\\", "\\")
+
+
+def _validate_latex(latex_str):
+    """Validate LaTeX string by attempting MathTex compile."""
+    from manim import MathTex
+    try:
+        MathTex(latex_str)
+        return True
+    except Exception as e:
+        print(f"  [LATEX] Invalid: '{latex_str[:60]}...' error: {e}")
+        return False
+
+
 def generate_narasi(topic, history, content_type, max_retry=3):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
@@ -247,7 +263,10 @@ Format output JSON:
   "soal": "teks soal lengkap",
   "pilihan": ["A. ...", "B. ...", "C. ...", "D. ..."],
   "jawaban": "A. ...",
-  "penjelasan": "pembahasan singkat mengapa jawaban itu benar dan yang lain salah"
+  "penjelasan": "pembahasan singkat mengapa jawaban itu benar dan yang lain salah",
+  "soal_latex": "\\\\sqrt{{x}} + \\\\frac{{1}}{{2}}",
+  "jawaban_latex": "\\\\frac{{1}}{{2}}",
+  "pilihan_latex": ["A. ...", "B. ...", "C. ...", "D. ..."]
 }}
 
 Aturan:
@@ -259,7 +278,12 @@ Aturan:
 - Maksimal 2 kalimat PENDek untuk soal, total maksimal 120 karakter
 - Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
 - Setiap pilihan jawaban maksimal 50 karakter (setelah prefix A/B/C/D)
-- Gunakan Unicode untuk notasi matematika: x² bukan x^2, √4 bukan sqrt(4), π bukan pi, × bukan x, ≤ bukan <=, ≠ bukan !=, ≥ bukan >="""
+- Gunakan Unicode untuk notasi matematika: x² bukan x^2, √4 bukan sqrt(4), π bukan pi, × bukan x, ≤ bukan <=, ≠ bukan !=, ≥ bukan >=
+- TAMBAHKAN field soal_latex, jawaban_latex, pilihan_latex untuk versi LaTeX dari field plain yang sama
+- soal_latex dan jawaban_latex: string LaTeX murni tanpa prefix A/B/C/D. Hanya gunakan \\sqrt{{}}, \\sqrt[n]{{}}, \\frac{{}}{{}}, ^, _ — standar amsmath, jangan pake custom macro
+- pilihan_latex: list dengan 4 item, isi LaTeX murni (setelah prefix huruf). Contoh: "A. \\sqrt{{2}}" (pertahankan prefix A. B. C. D.)
+- Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{x}} ditulis sebagai "\\\\sqrt{{x}}" dalam JSON
+- Gunakan huruf x sebagai variabel utama yang perlu disorot nanti di video"""
     elif content_type == "fakta":
         prompt = f"""Buat 1 konten fakta matematika yang mengejutkan dan jarang diketahui orang, terkait topik {topic_label}.
 
@@ -268,7 +292,9 @@ Format output JSON:
   "soal": "fakta matematika yang mengejutkan (1-2 kalimat)",
   "pilihan": ["Penjelasan lanjutan 1", "Penjelasan lanjutan 2", "Penjelasan lanjutan 3", "Penjelasan lanjutan 4"],
   "jawaban": "fakta yang benar (sesuai pilihan yang paling tepat)",
-  "penjelasan": "penjelasan ilmiah/detail dari fakta tersebut (2-3 kalimat)"
+  "penjelasan": "penjelasan ilmiah/detail dari fakta tersebut (2-3 kalimat)",
+  "soal_latex": "\\\\sqrt{{2}} \\\\approx 1.414",
+  "jawaban_latex": "\\\\sqrt{{2}} \\\\approx 1.414"
 }}
 
 Aturan:
@@ -276,7 +302,9 @@ Aturan:
 - Bahasa Indonesia
 - Maksimal 2 kalimat PENDek untuk fakta, total maksimal 120 karakter
 - Penjelasan maksimal 3 kalimat, total maksimal 180 karakter
-- Gunakan Unicode untuk notasi matematika: x² bukan x^2, π bukan pi"""
+- Gunakan Unicode untuk notasi matematika: x² bukan x^2, π bukan pi
+- TAMBAHKAN soal_latex dan jawaban_latex (string LaTeX murni)
+- Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{2}} ditulis sebagai "\\\\sqrt{{2}}" dalam JSON"""
     else:
         prompt = f"""Buat 1 tips/trik cepat matematika untuk persiapan CPNS/TKA/SNBT dengan topik {topic_label}.
 
@@ -285,7 +313,9 @@ Format output JSON:
   "soal": "pertanyaan atau masalah yang sering muncul (1 kalimat)",
   "pilihan": ["A. Cara umum (lambat)", "B. Cara umum lainnya", "C. Cara cepat (trikinya)", "D. Cara salah yang umum"],
   "jawaban": "C. Cara cepat (trikinya)",
-  "penjelasan": "penjelasan trik cepat langkah demi langkah (2-3 kalimat)"
+  "penjelasan": "penjelasan trik cepat langkah demi langkah (2-3 kalimat)",
+  "soal_latex": "\\\\sqrt{{144}} + \\\\sqrt{{25}}",
+  "jawaban_latex": "\\\\text{{Cara cepat}}"
 }}
 
 Aturan:
@@ -294,7 +324,11 @@ Aturan:
 - Soal maksimal 120 karakter (1 kalimat pendek)
 - Setiap pilihan maksimal 40 karakter
 - Penjelasan maksimal 180 karakter (2-3 kalimat pendek)
-- Gunakan Unicode untuk notasi matematika: x² bukan x^2, √ bukan sqrt, π bukan pi"""
+- Gunakan Unicode untuk notasi matematika: x² bukan x^2, √ bukan sqrt, π bukan pi
+- TAMBAHKAN soal_latex dan jawaban_latex (string LaTeX murni)
+- soal_latex: LaTeX dari teks soal
+- jawaban_latex: LaTeX dari jawaban (cukup teks triknya, tanpa prefix C.)
+- Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{144}} ditulis sebagai "\\\\sqrt{{144}}" dalam JSON"""
 
     for attempt in range(1, max_retry + 1):
         try:
@@ -304,7 +338,7 @@ Aturan:
                 config={"response_mime_type": "application/json"},
             )
             narasi = json.loads(response.text)
-            required = {"soal", "pilihan", "jawaban", "penjelasan"}
+            required = {"soal", "pilihan", "jawaban", "penjelasan", "soal_latex", "jawaban_latex"}
             if not all(k in narasi for k in required):
                 print(f"[WARN] Missing fields, retry {attempt}")
                 continue
@@ -340,6 +374,23 @@ Aturan:
             narasi["pilihan"] = [fix_math_notation(p) for p in narasi["pilihan"]]
             narasi["jawaban"] = fix_math_notation(narasi["jawaban"])
             narasi["penjelasan"] = fix_math_notation(narasi["penjelasan"])
+
+            # Sanitize and validate LaTeX fields
+            narasi["soal_latex"] = _sanitize_latex(narasi["soal_latex"])
+            narasi["jawaban_latex"] = _sanitize_latex(narasi["jawaban_latex"])
+            latex_ok = _validate_latex(narasi["soal_latex"])
+            latex_ok = _validate_latex(narasi["jawaban_latex"]) and latex_ok
+            if content_type == "quiz":
+                if "pilihan_latex" not in narasi or len(narasi["pilihan_latex"]) != 4:
+                    print(f"[WARN] Missing pilihan_latex, retry {attempt}")
+                    continue
+                narasi["pilihan_latex"] = [_sanitize_latex(p) for p in narasi["pilihan_latex"]]
+                for pl in narasi["pilihan_latex"]:
+                    latex_ok = _validate_latex(pl) and latex_ok
+            if not latex_ok:
+                print(f"[WARN] LaTeX validation failed, retry {attempt}")
+                continue
+
             return narasi
         except (json.JSONDecodeError, KeyError, ValueError) as e:
             print(f"[WARN] Gemini attempt {attempt} failed: {e}")
@@ -374,6 +425,9 @@ def render_manim_scene(narasi, topic, content_type, output_path):
             "penjelasan": narasi["penjelasan"],
             "topik": topic,
             "content_type": content_type,
+            "soal_latex": narasi.get("soal_latex", narasi["soal"]),
+            "jawaban_latex": narasi.get("jawaban_latex", narasi["jawaban"]),
+            "pilihan_latex": narasi.get("pilihan_latex", narasi["pilihan"]),
         }
         instance.render()
 
