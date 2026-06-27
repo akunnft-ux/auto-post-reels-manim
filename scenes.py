@@ -30,6 +30,34 @@ def get_topic_color(topic: str) -> str:
     return TOPIC_COLORS.get(topic, "#868E96")
 
 
+def _split_text_blocks(latex_str, max_chars=18):
+    parts = re.split(r'(\\text\{[^}]*\})', latex_str)
+    result = []
+    for p in parts:
+        m = re.match(r'^\\text\{([^}]*)\}$', p)
+        if m:
+            content = m.group(1)
+            if len(content) > max_chars:
+                words = content.split()
+                lines = []
+                cur = []
+                for w in words:
+                    test = ' '.join(cur + [w])
+                    if len(test) > max_chars and cur:
+                        lines.append(' '.join(cur))
+                        cur = [w]
+                    else:
+                        cur.append(w)
+                if cur:
+                    lines.append(' '.join(cur))
+                result.extend(f'\\text{{{l} }}' for l in lines)
+            else:
+                result.append(p)
+        else:
+            result.append(p)
+    return ''.join(result)
+
+
 def render_equation(latex_str, max_width, font_size=40, color="#2D3436", highlight_color=None, highlight_substrings=None):
     eq = MathTex(latex_str, font_size=font_size, color=color)
     if highlight_color and highlight_substrings:
@@ -146,8 +174,9 @@ class QuizScene(Scene):
         topic_badge.next_to(title_group, DOWN, buff=0.3)
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
+        processed_soal = _split_text_blocks(soal_latex)
         soal_eq = render_wrapped_latex(
-            soal_latex,
+            processed_soal,
             max_width=config.frame_width - 0.6,
             font_size=26,
             color=colors["main"],
