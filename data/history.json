@@ -173,5 +173,12 @@
     "topik": "fungsi_grafik",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Jika 3^{x+1} + 3^x = 108, berapakah nilai x?",
+    "jawaban": "B. 3",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
