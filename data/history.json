@@ -152,5 +152,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Rata-rata 4 bilangan adalah 10. Jika angka 15 ditambahkan ke dalam kumpulan tersebut, berapakah rata-rata barunya?",
+    "jawaban": "A. 11",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
