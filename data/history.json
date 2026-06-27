@@ -166,5 +166,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Manakah grafik fungsi f(x) = |x| / x yang benar untuk x ≠ 0?",
+    "jawaban": "C. Dua garis horizontal y = 1 dan y = -1",
+    "topik": "fungsi_grafik",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
