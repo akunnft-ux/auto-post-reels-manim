@@ -131,5 +131,12 @@
     "topik": "peluang_statistika",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Berapakah nilai dari x jika 2^{x+2} = 8^{x-1}?",
+    "jawaban": "B. 2,5",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-06-27"
   }
 ]
