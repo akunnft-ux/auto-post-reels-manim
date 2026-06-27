@@ -210,9 +210,15 @@
     "tanggal": "2026-06-27"
   },
   {
+<<<<<<< Updated upstream
     "soal": "Tentukan angka berikutnya dari deret: 1, 1, 2, 6, 24, x.",
     "jawaban": "A. 120",
     "topik": "deret_angka",
+=======
+    "soal": "Sebuah dadu dilempar 2 kali. Berapa peluang jumlah mata dadu adalah 7 atau 11?",
+    "jawaban": "A. ²⁄₉",
+    "topik": "peluang_statistika",
+>>>>>>> Stashed changes
     "content_type": "quiz",
     "tanggal": "2026-06-27"
   }
