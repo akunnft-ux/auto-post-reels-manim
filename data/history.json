@@ -5,5 +5,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-06-27"
+  },
+  {
+    "soal": "Jika 4^x + 4^x + 4^x + 4^x = 2¹0, berapakah nilai x?",
+    "jawaban": "C. 4",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-06-28"
   }
 ]
