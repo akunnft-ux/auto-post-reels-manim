@@ -19,5 +19,12 @@
     "topik": "fungsi_grafik",
     "content_type": "quiz",
     "tanggal": "2026-06-28"
+  },
+  {
+    "soal": "Sebuah persegi memiliki luas 16 cm². Jika panjang sisi persegi ditambah 2 cm, berapa kenaikan luasnya?",
+    "jawaban": "C. 20 cm²",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-06-28"
   }
 ]
