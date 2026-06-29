@@ -47,5 +47,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-06-29"
+  },
+  {
+    "soal": "Dalam sebuah kotak terdapat 3 bola merah dan 2 bola putih. Jika 2 bola diambil sekaligus, peluang terambil minimal 1 bola merah adalah?",
+    "jawaban": "D. ⁹⁄₁₀",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-06-29"
   }
 ]
