@@ -40,5 +40,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-06-29"
+  },
+  {
+    "soal": "Tentukan angka berikutnya dari deret: 1, 2, 6, 24, 120, x",
+    "jawaban": "D. 720",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-06-29"
   }
 ]
