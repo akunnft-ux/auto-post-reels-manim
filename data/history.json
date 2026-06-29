@@ -33,5 +33,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-06-28"
+  },
+  {
+    "soal": "Jika 1/x + 1/y = 5 dan 1/x - 1/y = 1, berapakah nilai 1/x²?",
+    "jawaban": "C. 9",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-06-29"
   }
 ]
