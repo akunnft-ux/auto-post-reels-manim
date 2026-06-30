@@ -75,5 +75,12 @@
     "topik": "fungsi_grafik",
     "content_type": "quiz",
     "tanggal": "2026-06-30"
+  },
+  {
+    "soal": "Sebuah lingkaran dengan luas 16π terletak di dalam persegi. Berapakah luas minimum persegi tersebut?",
+    "jawaban": "C. 64",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-06-30"
   }
 ]
