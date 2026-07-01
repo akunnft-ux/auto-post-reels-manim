@@ -124,5 +124,12 @@
     "topik": "geometri",
     "content_type": "quiz",
     "tanggal": "2026-07-01"
+  },
+  {
+    "soal": "Jika f(x) = x² - 2x + 1 dan g(x) = x - 1, manakah pernyataan yang benar mengenai grafik f(x)/g(x)?",
+    "jawaban": "A. Garis lurus dengan lubang di x = 1",
+    "topik": "fungsi_grafik",
+    "content_type": "quiz",
+    "tanggal": "2026-07-01"
   }
 ]
