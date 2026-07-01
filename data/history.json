@@ -117,5 +117,12 @@
     "topik": "peluang_statistika",
     "content_type": "quiz",
     "tanggal": "2026-07-01"
+  },
+  {
+    "soal": "Sebuah segitiga sama sisi memiliki luas 9√3 cm². Berapakah keliling segitiga tersebut?",
+    "jawaban": "B. 18 cm",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-07-01"
   }
 ]
