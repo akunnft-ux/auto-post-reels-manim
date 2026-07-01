@@ -103,5 +103,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-07-01"
+  },
+  {
+    "soal": "Tentukan angka berikutnya dari deret: 1, 4, 9, 16, 25, 49, 64, x",
+    "jawaban": "A. 81",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-07-01"
   }
 ]
