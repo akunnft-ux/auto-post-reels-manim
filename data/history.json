@@ -131,5 +131,12 @@
     "topik": "fungsi_grafik",
     "content_type": "quiz",
     "tanggal": "2026-07-01"
+  },
+  {
+    "soal": "Dalam sebuah kotak ada 3 bola merah dan 3 bola biru. Jika diambil 2 bola sekaligus, berapakah peluang terambil bola dengan warna berbeda?",
+    "jawaban": "B. ⅗",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-07-02"
   }
 ]
