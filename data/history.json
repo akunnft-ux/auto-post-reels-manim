@@ -138,5 +138,12 @@
     "topik": "peluang_statistika",
     "content_type": "quiz",
     "tanggal": "2026-07-02"
+  },
+  {
+    "soal": "Jika x² = 4x dan x ≠ 0, berapakah nilai x² - 4x + 5?",
+    "jawaban": "C. 5",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-07-02"
   }
 ]
