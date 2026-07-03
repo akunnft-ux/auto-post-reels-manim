@@ -159,5 +159,12 @@
     "topik": "geometri",
     "content_type": "quiz",
     "tanggal": "2026-07-02"
+  },
+  {
+    "soal": "Jika x² = 9, berapakah nilai dari (x + 1)²?",
+    "jawaban": "C. 16 atau 4",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-07-03"
   }
 ]
