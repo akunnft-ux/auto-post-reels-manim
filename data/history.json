@@ -180,5 +180,12 @@
     "topik": "geometri",
     "content_type": "quiz",
     "tanggal": "2026-07-03"
+  },
+  {
+    "soal": "Dalam suatu kelas, rata-rata nilai x siswa adalah 80. Jika ditambah 1 siswa bernilai 90, rata-ratanya menjadi 82. Berapakah nilai x?",
+    "jawaban": "A. 4",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-07-03"
   }
 ]
