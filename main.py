@@ -12,13 +12,22 @@ import traceback
 from datetime import date, datetime
 
 from google import genai
+from PIL import Image, ImageDraw, ImageFont
 import requests
 
 HISTORY_FILE = "data/history.json"
 MODE_FILE = "data/mode.json"
+PRODUCT_ROTATION_FILE = "data/product_rotation.json"
+PRODUCT_LINKS_FILE = "data/product_links.json"
+PRODUCT_ASSETS_DIR = "assets/shopee"
 MAX_HISTORY_ITEMS = 180
 MANIM_TIMEOUT = 600  # Increased from 480 for LaTeX compile overhead
 LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
+
+HOOK_SECONDS = 2
+PRODUCT_SLIDE_SECONDS = 2
+IMG_WIDTH = 1080
+IMG_HEIGHT = 1920
 
 CONTENT_TYPES = ["quiz", "fakta", "tips"]
 CONTENT_TYPE_WEIGHTS = {"quiz": 0.4, "fakta": 0.3, "tips": 0.3}
@@ -30,6 +39,24 @@ TOPICS = {
     "geometri": "Geometri",
     "fungsi_grafik": "Fungsi & Grafik",
 }
+
+FONT_BOLD = "fonts/DejaVuSans-Bold.ttf"
+FONT_REGULAR = "fonts/DejaVuSans.ttf"
+
+BG_COLOR = "#FFF8E7"
+HEADER_BG = "#1B2A4A"
+HEADER_TEXT = "#FFFFFF"
+TOPIC_BG = {"deret_angka": "#FF6B9D", "aritmatika_aljabar": "#FF8C42", "peluang_statistika": "#A8E6CF", "geometri": "#7EC8E3", "fungsi_grafik": "#DDA0DD"}
+TOPIC_TEXT = "#FFFFFF"
+SOAL_TEXT = "#2C3E50"
+PILIHAN_BG = "#FFFFFF"
+PILIHAN_ACCENT = "#FF8C42"
+PILIHAN_TEXT = "#2C3E50"
+JAWABAN_BG = "#FFE0EC"
+JAWABAN_ACCENT = "#FF6B9D"
+JAWABAN_TEXT = "#8B2252"
+PENJELASAN_TEXT = "#475569"
+FOOTER_TEXT = "#94A3B8"
 
 HOOK_TEMPLATES = {
     "quiz": [
@@ -139,11 +166,80 @@ def get_cta():
     return random.choice(CTA_POOL)
 
 
+def load_product_rotation():
+    rotation = _load_json(PRODUCT_ROTATION_FILE, {"current_index": 0})
+    if "current_index" not in rotation:
+        rotation["current_index"] = 0
+    return rotation
+
+
+def save_product_rotation(index):
+    _save_json(PRODUCT_ROTATION_FILE, {"current_index": index})
+
+
+def pick_product():
+    rotation = load_product_rotation()
+    idx = rotation["current_index"]
+
+    product_dirs = sorted([
+        d for d in os.listdir(PRODUCT_ASSETS_DIR)
+        if os.path.isdir(os.path.join(PRODUCT_ASSETS_DIR, d))
+    ]) if os.path.isdir(PRODUCT_ASSETS_DIR) else []
+
+    if not product_dirs:
+        print("[WARN] No product directories found in assets/shopee/")
+        return None
+
+    if idx >= len(product_dirs):
+        idx = 0
+
+    product_name = product_dirs[idx]
+    product_path = os.path.join(PRODUCT_ASSETS_DIR, product_name)
+    images = sorted([
+        os.path.join(product_path, f)
+        for f in os.listdir(product_path)
+        if f.lower().endswith((".webp", ".png", ".jpg", ".jpeg"))
+    ])
+
+    if len(images) < 3:
+        print(f"[WARN] Product '{product_name}' has only {len(images)} images (need 3)")
+        return None
+
+    print(f"[INFO] Selected product: {product_name} (index {idx})")
+    return {"index": idx, "name": product_name, "images": images[:3], "next_index": (idx + 1) % max(len(product_dirs), 1)}
+
+
+def load_product_links():
+    if not os.path.exists(PRODUCT_LINKS_FILE):
+        print(f"[WARN] Product links file not found: {PRODUCT_LINKS_FILE}")
+        return {}
+    with open(PRODUCT_LINKS_FILE, "r") as f:
+        links = json.load(f)
+    return {entry["id_produk"]: entry for entry in links}
+
+
+def get_link_for_product(product):
+    links = load_product_links()
+    if product is None:
+        return None
+    name = product.get("name")
+    if not name or name not in links:
+        print(f"[WARN] No link found for product: {name}")
+        return None
+    entry = links[name]
+    return entry.get("link_komisi_ekstra", entry["link_produk"])
+
+
 SUPERSCRIPT_MAP = {
     '0': '⁰', '1': '¹', '2': '²', '3': '³', '4': '⁴',
     '5': '⁵', '6': '⁶', '7': '⁷', '8': '⁸', '9': '⁹',
     '+': '⁺', '-': '⁻', '=': '⁼', '(': '⁽', ')': '⁾',
     'n': 'ⁿ', 'a': 'ᵃ', 'b': 'ᵇ', 'm': 'ᵐ',
+    'c': 'ᶜ', 'd': 'ᵈ', 'e': 'ᵉ', 'f': 'ᶠ', 'g': 'ᵍ',
+    'h': 'ʰ', 'i': 'ⁱ', 'j': 'ʲ', 'k': 'ᵏ', 'l': 'ˡ',
+    'o': 'ᵒ', 'p': 'ᵖ', 'r': 'ʳ', 's': 'ˢ', 't': 'ᵗ',
+    'u': 'ᵘ', 'v': 'ᵛ', 'w': 'ʷ', 'x': 'ˣ', 'y': 'ʸ',
+    'z': 'ᶻ',
 }
 
 FRACTION_MAP = {
@@ -161,20 +257,32 @@ SUBSCRIPT_MAP = {
     '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
     '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉',
     '+': '₊', '-': '₋', '=': '₌', '(': '₍', ')': '₎',
+    'a': 'ₐ', 'e': 'ₑ', 'o': 'ₒ', 'x': 'ₓ',
+    'h': 'ₕ', 'k': 'ₖ', 'l': 'ₗ', 'm': 'ₘ',
+    'n': 'ₙ', 'p': 'ₚ', 's': 'ₛ', 't': 'ₜ',
 }
 
 def fix_math_notation(text: str) -> str:
+    text = re.sub(
+        r'\^\{([^}]*)\}',
+        lambda m: ''.join(SUPERSCRIPT_MAP.get(c, c) for c in m.group(1)),
+        text,
+    )
     text = re.sub(
         r'\^\(([^)]+)\)',
         lambda m: ''.join(SUPERSCRIPT_MAP.get(c, c) for c in m.group(1)),
         text,
     )
     text = re.sub(
-        r'(?<=\w)\^(\d)',
+        r'\^(\d+)',
+        lambda m: ''.join(SUPERSCRIPT_MAP.get(c, c) for c in m.group(1)),
+        text,
+    )
+    text = re.sub(
+        r'\^([a-z])',
         lambda m: SUPERSCRIPT_MAP.get(m.group(1), m.group(1)),
         text,
     )
-    text = re.sub(r'(?<=\w)\^n', 'ⁿ', text)
     text = re.sub(r'\bsqrt\b', '√', text)
     text = re.sub(r'\bpi\b', 'π', text)
     text = text.replace('>=', '≥').replace('<=', '≤').replace('!=', '≠')
@@ -379,6 +487,10 @@ Aturan:
             narasi["jawaban"] = fix_math_notation(narasi["jawaban"])
             narasi["penjelasan"] = fix_math_notation(narasi["penjelasan"])
 
+            if narasi["jawaban"] not in narasi["pilihan"]:
+                print(f"[WARN] Jawaban not in pilihan after formatting, retry {attempt}")
+                continue
+
             if is_duplicate(narasi["soal"], history):
                 print(f"[WARN] Duplicate soalan, retry {attempt}")
                 continue
@@ -513,6 +625,137 @@ def compliance_check(caption):
         if re.search(pattern, caption_lower):
             raise ValueError(f"Compliance: engagement bait pattern '{pattern}' detected")
     return True
+
+
+def hex_to_rgb(h):
+    h = h.lstrip("#")
+    return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+
+
+def wrap_text(text, font, draw, max_width):
+    words = text.split()
+    lines = []
+    current = ""
+    for word in words:
+        test = f"{current} {word}".strip()
+        bbox = draw.textbbox((0, 0), test, font=font)
+        w = bbox[2] - bbox[0]
+        if w <= max_width:
+            current = test
+        else:
+            if current:
+                lines.append(current)
+            current = word
+    if current:
+        lines.append(current)
+    return lines
+
+
+def draw_rounded_rect(draw, xy, radius, fill):
+    draw.rounded_rectangle(xy, radius=radius, fill=fill)
+
+
+def render_frame_hook(hook_text, topic, output_path):
+    img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), hex_to_rgb(HEADER_BG))
+    draw = ImageDraw.Draw(img)
+
+    font_big = ImageFont.truetype(FONT_BOLD, 72)
+    font_sub = ImageFont.truetype(FONT_REGULAR, 32)
+    font_badge = ImageFont.truetype(FONT_BOLD, 28)
+
+    accent = TOPIC_BG.get(topic, "#FF8C42")
+    accent_rgb = hex_to_rgb(accent)
+
+    overlay = Image.new("RGBA", (IMG_WIDTH, IMG_HEIGHT), (*accent_rgb, 30))
+    img.paste(overlay, (0, 0), overlay)
+
+    topic_label = TOPICS.get(topic, topic)
+    bbox = draw.textbbox((0, 0), f"\u2728 {topic_label}", font=font_badge)
+    badge_w = bbox[2] - bbox[0] + 30
+    badge_h = bbox[3] - bbox[1] + 14
+    badge_y = 60
+    badge_x = (IMG_WIDTH - badge_w) // 2
+    draw_rounded_rect(draw, [badge_x, badge_y, badge_x + badge_w, badge_y + badge_h], 20, accent_rgb)
+    draw.text((badge_x + 15, badge_y + 7), f"\u2728 {topic_label}", fill="#FFFFFF", font=font_badge)
+
+    hook_lines = wrap_text(hook_text, font_big, draw, IMG_WIDTH - 120)
+    total_h = len(hook_lines) * 90
+    start_y = (IMG_HEIGHT - total_h) // 2
+    for line in hook_lines:
+        draw.text((IMG_WIDTH // 2, start_y), line, fill="#FFFFFF", font=font_big, anchor="mt")
+        start_y += 90
+
+    draw.text((IMG_WIDTH // 2, IMG_HEIGHT - 80), "Geser untuk jawaban \u25BC", fill="#94A3B8", font=font_sub, anchor="mt")
+
+    img.save(output_path)
+    return output_path
+
+
+def render_product_slides(product, tmpdir):
+    from moviepy import ImageClip
+
+    slides = []
+    for i, img_path in enumerate(product["images"]):
+        try:
+            frame_path = os.path.join(tmpdir, f"product_{i}.png")
+            img = Image.open(img_path).convert("RGBA")
+            img_w, img_h = img.size
+            scale = IMG_WIDTH / img_w
+            new_h = int(img_h * scale)
+            img = img.resize((IMG_WIDTH, new_h), Image.LANCZOS)
+
+            canvas = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), (0, 0, 0))
+            y_offset = (IMG_HEIGHT - new_h) // 2
+            canvas.paste(img, (0, y_offset), img if img.mode == "RGBA" else None)
+            canvas.save(frame_path)
+
+            slide = ImageClip(frame_path, duration=PRODUCT_SLIDE_SECONDS)
+            slides.append(slide)
+        except Exception as e:
+            print(f"[WARN] Failed to load product image {img_path}: {e}")
+            continue
+    return slides
+
+
+def composite_hook_and_products(manim_video, output_path, hook_text, topic, product):
+    from moviepy import ImageClip, VideoFileClip, concatenate_videoclips
+
+    tmpdir = tempfile.mkdtemp()
+    try:
+        clips = []
+
+        if hook_text:
+            try:
+                hook_frame = os.path.join(tmpdir, "hook.png")
+                render_frame_hook(hook_text, topic, hook_frame)
+                hook_clip = ImageClip(hook_frame, duration=HOOK_SECONDS)
+                clips.append(hook_clip)
+                print(f"[INFO] Hook frame rendered ({HOOK_SECONDS}s)")
+            except Exception as e:
+                print(f"[WARN] Hook render failed, skipping: {e}")
+
+        main_clip = VideoFileClip(manim_video)
+        clips.append(main_clip)
+
+        if product is not None:
+            try:
+                product_slides = render_product_slides(product, tmpdir)
+                if product_slides:
+                    clips.extend(product_slides)
+                    print(f"[INFO] Added {len(product_slides)} product slides from {product['name']}")
+            except Exception as e:
+                print(f"[WARN] Product slide render failed, skipping: {e}")
+
+        if len(clips) == 1:
+            shutil.copy2(manim_video, output_path)
+            return output_path
+
+        final = concatenate_videoclips(clips, method="compose")
+        final.write_videofile(output_path, codec="libx264", audio_codec="aac", logger=None)
+        final.close()
+        return output_path
+    finally:
+        shutil.rmtree(tmpdir, ignore_errors=True)
 
 
 def build_caption(narasi, topic, content_type, hook):
@@ -799,32 +1042,51 @@ def main():
             caption = build_caption(narasi, topic, content_type, hook)
             compliance_check(caption)
 
-        print("[STEP] 5/9 Render Manim animation scene")
+        print("[STEP] 5/9 Pick product rotation")
+        product = pick_product()
+        if product:
+            print(f"  Product: {product['name']} (index {product['index']})")
+        else:
+            print("  No product available")
+
+        product_link_msg = get_link_for_product(product)
+        if product_link_msg:
+            print(f"  Product link: {product_link_msg[:60]}...")
+        else:
+            print("  No product link available")
+
+        print("[STEP] 6/9 Render Manim animation scene")
         raw_video = os.path.join(tmpdir, "raw_scene.mp4")
         render_start = time.time()
         render_manim_scene(narasi, topic, content_type, raw_video)
         render_time = time.time() - render_start
         print(f"  Manim render took {render_time:.1f}s")
 
-        print("[STEP] 6/9 Composite BGM")
+        print("[STEP] 7/9 Composite hook + products + manim")
+        wrapped_video = os.path.join(tmpdir, "wrapped_scene.mp4")
+        composite_hook_and_products(raw_video, wrapped_video, hook, topic, product)
+
+        print("[STEP] 8/9 Composite BGM")
         bgm_video = os.path.join(tmpdir, "bgm_scene.mp4")
-        bgm_result = composite_bgm(raw_video, bgm_video)
+        bgm_result = composite_bgm(wrapped_video, bgm_video)
         final_video = bgm_result
 
-        print("[STEP] 7/9 Check post mode")
+        print("[STEP] 9/9 Check post mode")
         mode = check_telegram_mode()
         print(f"  Mode: {mode}")
 
         if mode == "facebook":
-            print("[STEP] 8/9 Post to Facebook Reels")
+            print("[STEP] 10/9 Post to Facebook Reels")
             result = post_to_facebook(final_video, caption)
             post_id = result.get("id", "unknown")
         else:
-            print("[STEP] 8/9 Post to Telegram")
+            print("[STEP] 10/9 Post to Telegram")
+            if product_link_msg:
+                caption = caption + f"\n\n🔗 {product_link_msg}"
             post_to_telegram(final_video, caption)
             post_id = "telegram"
 
-        print("[STEP] 9/9 Save history")
+        print("[STEP] 11/9 Save history")
         entry = {
             "soal": narasi["soal"],
             "jawaban": narasi["jawaban"],
@@ -835,6 +1097,10 @@ def main():
         history.append(entry)
         save_history(history)
         print(f"  History: {len(history)} entries")
+
+        if product is not None:
+            save_product_rotation(product["next_index"])
+            print(f"  Product rotation saved: index {product['next_index']}")
 
         elapsed = time.time() - start_time
         print(f"\n[DONE] Completed in {elapsed:.1f}s")

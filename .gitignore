@@ -10,5 +10,7 @@ data/*.json
 !data/analytics_records.json
 !data/classification.json
 !data/learning_iteration.json
+!data/product_links.json
+!data/product_rotation.json
 .manim/
 media/

@@ -1,0 +1,35 @@
+[
+  {
+    "id_produk": "product1",
+    "nama_produk": "Hamz Coffe Bubuk Kopi Aceh Premium Nikmat",
+    "harga": "34,4RB",
+    "penjualan": "6RB+",
+    "nama_toko": "PUTRA ZAENAL",
+    "komisi_higga": "10%",
+    "komisi": "Rp3.440",
+    "link_produk": "https://shopee.co.id/product/770923777/28222070387",
+    "link_komisi_ekstra": "https://s.shopee.co.id/9KgA7my9bj"
+  },
+  {
+    "id_produk": "product2",
+    "nama_produk": "NGEMILYUKK29 - KULIT AYAM CRISPY 250G DAUN JERUK ORIGINAL & PEDAS - MAKANAN CEMILAN SNACK RINGAN",
+    "harga": "36,7RB",
+    "penjualan": "3RB+",
+    "nama_toko": "Ngemilyukk29 Official Shop",
+    "komisi_higga": "11,5%",
+    "komisi": "Rp4.035",
+    "link_produk": "https://shopee.co.id/product/142983680/13795393815",
+    "link_komisi_ekstra": "https://s.shopee.co.id/9fJ0WOwsvl"
+  },
+  {
+    "id_produk": "product3",
+    "nama_produk": "Hayang Seblak Instan Pedas Gurih Sambal Asli",
+    "harga": "22,5RB",
+    "penjualan": "10RB+",
+    "nama_toko": "Hayangseblak.official",
+    "komisi_higga": "10%",
+    "komisi": "Rp2.250",
+    "link_produk": "https://shopee.co.id/product/40254244/26855186608",
+    "link_komisi_ekstra": "https://s.shopee.co.id/9UzaK5xWGk"
+  }
+]
