@@ -187,5 +187,12 @@
     "topik": "peluang_statistika",
     "content_type": "quiz",
     "tanggal": "2026-07-03"
+  },
+  {
+    "soal": "Grafik fungsi f(x) = (x² - 1) / (x - 1) akan membentuk?",
+    "jawaban": "A. Garis lurus dengan lubang di (1, 2)",
+    "topik": "fungsi_grafik",
+    "content_type": "quiz",
+    "tanggal": "2026-07-03"
   }
 ]
