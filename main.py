@@ -374,13 +374,14 @@ Aturan:
                 print(f"[WARN] Fakta answer mismatch, retry {attempt}")
                 continue
 
-            if is_duplicate(narasi["soal"], history):
-                print(f"[WARN] Duplicate soalan, retry {attempt}")
-                continue
             narasi["soal"] = fix_math_notation(narasi["soal"])
             narasi["pilihan"] = [fix_math_notation(p) for p in narasi["pilihan"]]
             narasi["jawaban"] = fix_math_notation(narasi["jawaban"])
             narasi["penjelasan"] = fix_math_notation(narasi["penjelasan"])
+
+            if is_duplicate(narasi["soal"], history):
+                print(f"[WARN] Duplicate soalan, retry {attempt}")
+                continue
 
             # Sanitize and validate LaTeX fields
             narasi["soal_latex"] = _sanitize_latex(narasi["soal_latex"])
