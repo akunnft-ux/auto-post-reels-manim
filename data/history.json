@@ -194,5 +194,12 @@
     "topik": "fungsi_grafik",
     "content_type": "quiz",
     "tanggal": "2026-07-03"
+  },
+  {
+    "soal": "Jika x² - 5x + 6 = 0, berapakah nilai dari (x - 2,5)²?",
+    "jawaban": "A. 0,25",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-07-03"
   }
 ]
