@@ -201,5 +201,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-07-03"
+  },
+  {
+    "soal": "Tentukan nilai x yang memenuhi persamaan |x - 3| = x - 5.",
+    "jawaban": "C. Tidak ada nilai x yang memenuhi",
+    "topik": "ujian_sekolah_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-04"
   }
 ]
