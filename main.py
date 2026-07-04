@@ -38,6 +38,15 @@ TOPICS = {
     "peluang_statistika": "Peluang & Statistika",
     "geometri": "Geometri",
     "fungsi_grafik": "Fungsi & Grafik",
+    "olimpiade_sd": "Olimpiade SD",
+    "olimpiade_smp": "Olimpiade SMP",
+    "olimpiade_sma": "Olimpiade SMA",
+    "ujian_sekolah_sd": "Ujian Sekolah SD",
+    "ujian_sekolah_smp": "Ujian Sekolah SMP",
+    "ujian_sekolah_sma": "Ujian Sekolah SMA",
+    "tka_sd": "TKA SD",
+    "tka_smp": "TKA SMP",
+    "tka_sma": "TKA SMA",
 }
 
 FONT_BOLD = "fonts/DejaVuSans-Bold.ttf"
@@ -46,7 +55,22 @@ FONT_REGULAR = "fonts/DejaVuSans.ttf"
 BG_COLOR = "#FFF8E7"
 HEADER_BG = "#1B2A4A"
 HEADER_TEXT = "#FFFFFF"
-TOPIC_BG = {"deret_angka": "#FF6B9D", "aritmatika_aljabar": "#FF8C42", "peluang_statistika": "#A8E6CF", "geometri": "#7EC8E3", "fungsi_grafik": "#DDA0DD"}
+TOPIC_BG = {
+    "deret_angka": "#FF6B9D", 
+    "aritmatika_aljabar": "#FF8C42", 
+    "peluang_statistika": "#A8E6CF", 
+    "geometri": "#7EC8E3", 
+    "fungsi_grafik": "#DDA0DD",
+    "olimpiade_sd": "#F9D423",
+    "olimpiade_smp": "#B8E986",
+    "olimpiade_sma": "#F08080",
+    "ujian_sekolah_sd": "#87CEEB",
+    "ujian_sekolah_smp": "#D8BFD8",
+    "ujian_sekolah_sma": "#FFA07A",
+    "tka_sd": "#AFEEEE",
+    "tka_smp": "#FFD700",
+    "tka_sma": "#ADD8E6",
+}
 TOPIC_TEXT = "#FFFFFF"
 SOAL_TEXT = "#2C3E50"
 PILIHAN_BG = "#FFFFFF"
