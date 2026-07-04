@@ -222,5 +222,12 @@
     "topik": "ujian_sekolah_sma",
     "content_type": "quiz",
     "tanggal": "2026-07-04"
+  },
+  {
+    "soal": "Tentukan angka selanjutnya dari deret berikut: 1, 3, 4, 7, 11, 18, x.",
+    "jawaban": "B. 29",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-07-04"
   }
 ]
