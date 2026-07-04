@@ -3,13 +3,17 @@
     "quiz": 1.0
   },
   "hook_templates": {
-    "quiz": [
-      "90% orang salah jawab soal ini. Coba kamu? 🧐",
-      "Kebanyakan orang terkecoh. Pasti kamu bisa! ⚡",
-      "Hanya 1 dari 10 orang yang benar. Ayo coba! 🎯",
-      "Jangan terkecoh dengan soalnya! 💡",
-      "Menurutmu jawabannya apa? Coba tebak dulu! 🤔"
-    ],
+      "quiz": [
+        "90% orang salah jawab soal ini. Coba kamu? 🧐",
+        "Kebanyakan orang terkecoh. Pasti kamu bisa! ⚡",
+        "Hanya 1 dari 10 orang yang benar. Ayo coba! 🎯",
+        "Jangan terkecoh dengan soalnya! 💡",
+        "Menurutmu jawabannya apa? Coba tebak dulu! 🤔",
+        "Satu-satunya cara buat jago matematika adalah latihan! Coba ini! ⚡",
+        "Jangan biarkan soal ini mengalahkanmu. Kamu bisa? 🎯",
+        "Trik rahasia yang bikin soal ini jadi gampang banget! 💡",
+        "Siapa sangka jawabannya sesederhana ini? Cek videonya! 🤯"
+      ],
     "fakta": [
       "Ternyata selama ini kamu salah! Cek videonya ▶️",
       "Fakta mengejutkan yang jarang orang tahu! 🤯",
@@ -47,5 +51,5 @@
     "#StudiCPNS"
   ],
   "variable_rotation_index": 1,
-  "updated_at": "2026-06-25T13:33:15Z"
+  "updated_at": "2026-07-04T12:00:00Z"
 }

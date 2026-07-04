@@ -6,10 +6,10 @@ permissions:
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 7 * * *"
-    - cron: "0 10 * * *"
-    - cron: "0 13 * * *"
-    - cron: "0 16 * * *"
+    - cron: "0 2 * * *"
+    - cron: "0 6 * * *"
+    - cron: "0 11 * * *"
+    - cron: "0 14 * * *"
 
 concurrency:
   group: auto-post
