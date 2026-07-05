@@ -278,5 +278,12 @@
     "topik": "tka_sma",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Jika 3ˣ⁺¹ + 3ˣ = 108, berapakah nilai x?",
+    "jawaban": "B. 3",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-07-05"
   }
 ]
