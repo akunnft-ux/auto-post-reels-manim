@@ -718,7 +718,7 @@ def render_frame_hook(hook_text, topic, output_path, hook_image_path=None):
             hw, hh = h_img.size
             scale = IMG_WIDTH / hw
             new_hh = int(hh * scale)
-            h_img = h_img.resize((IMG_WIDTH, new_hh), Image.LANCZOS)
+            h_img = h_img.resize((IMG_WIDTH, new_hh), getattr(Image, 'Resampling', Image).LANCZOS)
             img.paste(h_img, (0, IMG_HEIGHT - new_hh), h_img if h_img.mode == "RGBA" else None)
             # Shift text up based on image height or a fixed amount
             y_offset = 200
@@ -758,7 +758,7 @@ def render_product_slides(product, tmpdir):
             img_w, img_h = img.size
             scale = IMG_WIDTH / img_w
             new_h = int(img_h * scale)
-            img = img.resize((IMG_WIDTH, new_h), Image.LANCZOS)
+            img = img.resize((IMG_WIDTH, new_h), getattr(Image, 'Resampling', Image).LANCZOS)
 
             canvas = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), (0, 0, 0))
             y_offset = (IMG_HEIGHT - new_h) // 2
