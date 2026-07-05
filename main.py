@@ -20,6 +20,7 @@ MODE_FILE = "data/mode.json"
 PRODUCT_ROTATION_FILE = "data/product_rotation.json"
 PRODUCT_LINKS_FILE = "data/product_links.json"
 PRODUCT_ASSETS_DIR = "assets/shopee"
+HOOK_ASSETS_DIR = "assets/hooks"
 MAX_HISTORY_ITEMS = 180
 MANIM_TIMEOUT = 600  # Increased from 480 for LaTeX compile overhead
 LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
@@ -231,6 +232,22 @@ def pick_product():
 
     print(f"[INFO] Selected product: {product_name} (index {idx})")
     return {"index": idx, "name": product_name, "images": images[:3], "next_index": (idx + 1) % max(len(product_dirs), 1)}
+
+
+def pick_hook_image():
+    hook_images = sorted([
+        os.path.join(HOOK_ASSETS_DIR, f)
+        for f in os.listdir(HOOK_ASSETS_DIR)
+        if f.lower().endswith((".webp", ".png", ".jpg", ".jpeg"))
+    ]) if os.path.isdir(HOOK_ASSETS_DIR) else []
+
+    if not hook_images:
+        print("[WARN] No hook images found in assets/hooks/")
+        return None
+
+    chosen = random.choice(hook_images)
+    print(f"[INFO] Selected hook image: {chosen}")
+    return chosen
 
 
 def load_product_links():
@@ -679,7 +696,7 @@ def draw_rounded_rect(draw, xy, radius, fill):
     draw.rounded_rectangle(xy, radius=radius, fill=fill)
 
 
-def render_frame_hook(hook_text, topic, output_path):
+def render_frame_hook(hook_text, topic, output_path, hook_image_path=None):
     img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), hex_to_rgb(HEADER_BG))
     draw = ImageDraw.Draw(img)
 
@@ -693,6 +710,21 @@ def render_frame_hook(hook_text, topic, output_path):
     overlay = Image.new("RGBA", (IMG_WIDTH, IMG_HEIGHT), (*accent_rgb, 30))
     img.paste(overlay, (0, 0), overlay)
 
+    # Render Hook Image at the bottom
+    y_offset = 0
+    if hook_image_path:
+        try:
+            h_img = Image.open(hook_image_path).convert("RGBA")
+            hw, hh = h_img.size
+            scale = IMG_WIDTH / hw
+            new_hh = int(hh * scale)
+            h_img = h_img.resize((IMG_WIDTH, new_hh), Image.LANCZOS)
+            img.paste(h_img, (0, IMG_HEIGHT - new_hh), h_img if h_img.mode == "RGBA" else None)
+            # Shift text up based on image height or a fixed amount
+            y_offset = 200
+        except Exception as e:
+            print(f"[WARN] Hook image render failed: {e}")
+
     topic_label = TOPICS.get(topic, topic)
     bbox = draw.textbbox((0, 0), f"\u2728 {topic_label}", font=font_badge)
     badge_w = bbox[2] - bbox[0] + 30
@@ -704,7 +736,7 @@ def render_frame_hook(hook_text, topic, output_path):
 
     hook_lines = wrap_text(hook_text, font_big, draw, IMG_WIDTH - 120)
     total_h = len(hook_lines) * 90
-    start_y = (IMG_HEIGHT - total_h) // 2
+    start_y = ((IMG_HEIGHT - total_h) // 2) - y_offset
     for line in hook_lines:
         draw.text((IMG_WIDTH // 2, start_y), line, fill="#FFFFFF", font=font_big, anchor="mt")
         start_y += 90
@@ -741,7 +773,7 @@ def render_product_slides(product, tmpdir):
     return slides
 
 
-def composite_hook_and_products(manim_video, output_path, hook_text, topic, product):
+def composite_hook_and_products(manim_video, output_path, hook_text, topic, product, hook_image_path=None):
     from moviepy import ImageClip, VideoFileClip, concatenate_videoclips
 
     tmpdir = tempfile.mkdtemp()
@@ -751,7 +783,7 @@ def composite_hook_and_products(manim_video, output_path, hook_text, topic, prod
         if hook_text:
             try:
                 hook_frame = os.path.join(tmpdir, "hook.png")
-                render_frame_hook(hook_text, topic, hook_frame)
+                render_frame_hook(hook_text, topic, hook_frame, hook_image_path)
                 hook_clip = ImageClip(hook_frame, duration=HOOK_SECONDS)
                 clips.append(hook_clip)
                 print(f"[INFO] Hook frame rendered ({HOOK_SECONDS}s)")
@@ -1047,7 +1079,10 @@ def main():
         content_type = pick_content_type()
         topic = pick_topic(history)
         hook = get_hook(content_type)
+        hook_image = pick_hook_image()
         print(f"  Content Type: {content_type}, Topic: {topic}")
+        if hook_image:
+            print(f"  Hook Image: {hook_image}")
 
         print("[STEP] 3/9 Generate content via Gemini")
         narasi = generate_narasi(topic, history, content_type)
@@ -1088,7 +1123,7 @@ def main():
 
         print("[STEP] 7/9 Composite hook + products + manim")
         wrapped_video = os.path.join(tmpdir, "wrapped_scene.mp4")
-        composite_hook_and_products(raw_video, wrapped_video, hook, topic, product)
+        composite_hook_and_products(raw_video, wrapped_video, hook, topic, product, hook_image)
 
         print("[STEP] 8/9 Composite BGM")
         bgm_video = os.path.join(tmpdir, "bgm_scene.mp4")
