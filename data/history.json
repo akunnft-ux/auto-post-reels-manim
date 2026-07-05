@@ -271,5 +271,12 @@
     "topik": "olimpiade_smp",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Tentukan nilai x yang memenuhi persamaan log(x²) = (log x)².",
+    "jawaban": "A. x = 1 atau x = 100",
+    "topik": "tka_sma",
+    "content_type": "quiz",
+    "tanggal": "2026-07-05"
   }
 ]
