@@ -243,5 +243,12 @@
     "topik": "tka_smp",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Dalam sebuah kotak terdapat 4 bola merah dan 2 bola putih. Jika 2 bola diambil sekaligus, berapakah peluang terambilnya setidaknya satu bola merah?",
+    "jawaban": "D. ¹⁴⁄₁₅",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-07-05"
   }
 ]
