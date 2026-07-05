@@ -250,5 +250,12 @@
     "topik": "peluang_statistika",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Manakah nilai x yang memenuhi persamaan |x - 2| + |x + 3| = 5?",
+    "jawaban": "C. Semua x di antara -3 dan 2",
+    "topik": "tka_sd",
+    "content_type": "quiz",
+    "tanggal": "2026-07-05"
   }
 ]
