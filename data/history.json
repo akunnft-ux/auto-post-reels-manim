@@ -264,5 +264,12 @@
     "topik": "ujian_sekolah_sd",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Jika 2³ˣ ⁺ ¹ = 16, berapakah nilai x?",
+    "jawaban": "A. 1",
+    "topik": "olimpiade_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-05"
   }
 ]
