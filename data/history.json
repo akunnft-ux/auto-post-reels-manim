@@ -236,5 +236,12 @@
     "topik": "ujian_sekolah_sma",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Jika 2ˣ⁺² + 2ˣ = 20, berapakah nilai x yang memenuhi?",
+    "jawaban": "B. 2",
+    "topik": "tka_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-05"
   }
 ]
