@@ -299,5 +299,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-07-06"
+  },
+  {
+    "soal": "Sebuah persegi dengan panjang sisi x cm memiliki luas yang sama dengan kelilingnya. Berapakah nilai x?",
+    "jawaban": "B. 4 cm",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-07-06"
   }
 ]
