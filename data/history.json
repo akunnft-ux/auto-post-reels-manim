@@ -292,5 +292,12 @@
     "topik": "deret_angka",
     "content_type": "quiz",
     "tanggal": "2026-07-06"
+  },
+  {
+    "soal": "Jika 3ˣ⁺¹ + 3ˣ⁻¹ = 30, berapakah nilai x?",
+    "jawaban": "B. 2",
+    "topik": "aritmatika_aljabar",
+    "content_type": "quiz",
+    "tanggal": "2026-07-06"
   }
 ]
