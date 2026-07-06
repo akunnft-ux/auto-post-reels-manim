@@ -285,5 +285,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-07-05"
+  },
+  {
+    "soal": "Tentukan angka berikutnya dari deret: 2, 6, 12, 20, 30, x.",
+    "jawaban": "B. 42",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-07-06"
   }
 ]
