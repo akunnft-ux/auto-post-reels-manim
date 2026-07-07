@@ -320,5 +320,12 @@
     "topik": "geometri",
     "content_type": "quiz",
     "tanggal": "2026-07-07"
+  },
+  {
+    "soal": "Rata-rata 5 bilangan adalah 10. Jika satu bilangan diambil, rata-rata sisanya menjadi 9. Berapakah bilangan yang diambil?",
+    "jawaban": "A. 14",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-07-07"
   }
 ]
