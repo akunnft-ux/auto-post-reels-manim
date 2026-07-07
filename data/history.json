@@ -313,5 +313,12 @@
     "topik": "olimpiade_smp",
     "content_type": "quiz",
     "tanggal": "2026-07-06"
+  },
+  {
+    "soal": "Sebuah lingkaran dengan luas 16π cm² berada di dalam persegi. Jika lingkaran menyinggung keempat sisi persegi, berapakah luas persegi tersebut?",
+    "jawaban": "C. 64 cm²",
+    "topik": "geometri",
+    "content_type": "quiz",
+    "tanggal": "2026-07-07"
   }
 ]
