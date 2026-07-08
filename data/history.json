@@ -341,5 +341,12 @@
     "topik": "aritmatika_aljabar",
     "content_type": "quiz",
     "tanggal": "2026-07-07"
+  },
+  {
+    "soal": "Jika log x² = (log x)², berapakah semua nilai x yang memenuhi?",
+    "jawaban": "C. x = 1 atau x = 100",
+    "topik": "olimpiade_sma",
+    "content_type": "quiz",
+    "tanggal": "2026-07-08"
   }
 ]
