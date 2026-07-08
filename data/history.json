@@ -362,5 +362,12 @@
     "topik": "olimpiade_sd",
     "content_type": "quiz",
     "tanggal": "2026-07-08"
+  },
+  {
+    "soal": "Jika 4 + 4 × 4 - 4 ÷ 4 = x, berapakah nilai x?",
+    "jawaban": "A. 19",
+    "topik": "ujian_sekolah_sd",
+    "content_type": "quiz",
+    "tanggal": "2026-07-08"
   }
 ]
