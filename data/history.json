@@ -348,5 +348,12 @@
     "topik": "olimpiade_sma",
     "content_type": "quiz",
     "tanggal": "2026-07-08"
+  },
+  {
+    "soal": "Jika x² = 9, manakah pernyataan yang benar mengenai nilai x?",
+    "jawaban": "C. x = 3 atau x = -3",
+    "topik": "ujian_sekolah_sma",
+    "content_type": "quiz",
+    "tanggal": "2026-07-08"
   }
 ]
