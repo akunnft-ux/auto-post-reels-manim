@@ -369,5 +369,12 @@
     "topik": "ujian_sekolah_sd",
     "content_type": "quiz",
     "tanggal": "2026-07-08"
+  },
+  {
+    "soal": "Berapakah nilai x yang memenuhi persamaan (x - 3)² = 16?",
+    "jawaban": "C. 7 atau -1",
+    "topik": "tka_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-09"
   }
 ]
