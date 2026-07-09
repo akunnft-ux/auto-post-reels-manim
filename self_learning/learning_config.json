@@ -3,17 +3,18 @@
     "quiz": 1.0
   },
   "hook_templates": {
-      "quiz": [
-        "90% orang salah jawab soal ini. Coba kamu? 🧐",
-        "Kebanyakan orang terkecoh. Pasti kamu bisa! ⚡",
-        "Hanya 1 dari 10 orang yang benar. Ayo coba! 🎯",
-        "Jangan terkecoh dengan soalnya! 💡",
-        "Menurutmu jawabannya apa? Coba tebak dulu! 🤔",
-        "Satu-satunya cara buat jago matematika adalah latihan! Coba ini! ⚡",
-        "Jangan biarkan soal ini mengalahkanmu. Kamu bisa? 🎯",
-        "Trik rahasia yang bikin soal ini jadi gampang banget! 💡",
-        "Siapa sangka jawabannya sesederhana ini? Cek videonya! 🤯"
-      ],
+"quiz": [
+      "Menurutmu jawabannya apa? Coba tebak dulu! 🤔",
+      "Cuma 1 dari 20 orang yang bisa jawab soal ini dalam 10 detik. Kamu termasuk? 🎯",
+      "Temenmu pasti langsung jawab salah. Buktiin kamu beda — coba dulu! 👇",
+      "Jawabannya sesimpel ini, tapi kebanyakan orang overthinking. Tebak dulu, baru cek! 🤯",
+      "Tulis jawabanmu di komentar SEBELUM lihat reveal-nya. Yang bener, kasih tanda 🔥 di komentar!",
+      "Kalau kamu anak matematika sejati, ini harusnya gampang. Buktiin di komentar! 💪",
+      "Ada 1 trik yang bikin soal ini kejawab dalam 5 detik. Coba dulu cara manual, terus cek triknya! ⚡",
+      "Ini soal yang bikin banyak orang salah karena buru-buru. Jangan sampai kamu juga! 🧐",
+      "Gampang katanya? Coba jawab dulu sebelum lihat pembahasannya. Komentar jawabanmu! 📝",
+      "Di akhir video ada cara cepatnya — tapi coba jawab versi kamu dulu di komentar! 🎬"
+    ],
     "fakta": [
       "Ternyata selama ini kamu salah! Cek videonya ▶️",
       "Fakta mengejutkan yang jarang orang tahu! 🤯",
@@ -30,11 +31,11 @@
     ]
   },
   "cta_pool": [
-    "Follow @matematikacpns untuk soal baru setiap hari! 🔥",
+    "Tulis A/B/C/D di komentar sebelum scroll ke jawaban! 👇",
+    "Follow untuk soal baru setiap hari! 🔥",
+    "Jawab dulu di komentar — reveal hasil di akhir video! 📝",
     "Follow akun ini biar makin jago matematika! 📚",
-    "Jangan lupa follow buat latihan CPNS tiap hari! ✅",
-    "Follow for more daily soal + tips CPNS! 🚀",
-    "Klik follow biar gak ketinggalan soal baru! 📝"
+    "Komen jawabanmu, kasih 🔥 kalau kamu benar!"
   ],
   "hashtag_pool": [
     "#SoalMatematika",

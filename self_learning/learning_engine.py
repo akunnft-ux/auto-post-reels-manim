@@ -5,13 +5,16 @@ from copy import deepcopy
 
 LEARNING_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "learning_config.json")
 
-VARIABLE_ORDER = ["content_type_weights", "hook_ranking", "cta_ranking", "hashtag_ranking"]
+VARIABLE_ORDER = ["content_type_weights", "hook_ranking", "cta_ranking", "hashtag_ranking", "posting_schedule", "content_pillar"]
 
 DEFAULT_CONFIG = {
     "content_type_weights": {"quiz": 0.4, "fakta": 0.3, "tips": 0.3},
     "hook_templates": {},
     "cta_pool": [],
     "hashtag_pool": [],
+    "posting_schedule": {"paused_hours": [], "preferred_hours": list(range(24)), "last_schedule_update": None},
+    "content_pillar_weights": {},
+    "report_data": {},
     "variable_rotation_index": 0,
     "updated_at": None,
 }
@@ -67,6 +70,10 @@ def compute_learning_config(current_config: dict, classifications: list, analyti
         iteration = _rank_templates(config, analytics_records, viral_ids, "cta_pool")
     elif variable == "hashtag_ranking":
         iteration = _rank_hashtags(config, analytics_records, viral_ids)
+    elif variable == "posting_schedule":
+        iteration = _update_posting_schedule(config)
+    elif variable == "content_pillar":
+        iteration = _update_content_pillar(config)
 
     if iteration:
         config["variable_rotation_index"] = (rotation_index + 1) % len(VARIABLE_ORDER)
@@ -197,3 +204,80 @@ def _compute_template_score(template: str, analytics_records: list, viral_ids: s
     """Score a template by how often it appears in viral posts."""
     viral_count = sum(1 for pid in viral_ids for r in analytics_records if r.get("post_id") == pid)
     return viral_count
+
+
+def _update_posting_schedule(config: dict, posting_time_performance: list = None) -> dict:
+    """
+    Update posting_schedule based on report performance data.
+    When called from rotation (no data), returns None (no-op).
+    """
+    if not posting_time_performance:
+        return None
+
+    old_value = deepcopy(config.get("posting_schedule", {}))
+
+    avg_views_list = [p["avg_views"] for p in posting_time_performance if p.get("avg_views") is not None]
+    if not avg_views_list:
+        return None
+
+    mean_avg = sum(avg_views_list) / len(avg_views_list)
+
+    preferred_hours = sorted([p["hour"] for p in posting_time_performance if p.get("avg_views", 0) >= mean_avg])
+    paused_hours = sorted([p["hour"] for p in posting_time_performance if p.get("avg_views", 0) < mean_avg * 0.5])
+
+    config["posting_schedule"] = {
+        "paused_hours": paused_hours,
+        "preferred_hours": preferred_hours,
+        "last_schedule_update": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
+
+    return {
+        "id": f"iter-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}",
+        "variable_changed": "posting_schedule",
+        "previous_value": old_value,
+        "new_value": deepcopy(config["posting_schedule"]),
+        "created_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
+
+
+def _update_content_pillar(config: dict, content_pillar_recommendations: str = None) -> dict:
+    """
+    Update content_pillar_weights based on report recommendations.
+    When called from rotation (no data), returns None (no-op).
+    """
+    if not content_pillar_recommendations:
+        return None
+
+    old_value = deepcopy(config.get("content_pillar_weights", {}))
+
+    text_lower = content_pillar_recommendations.lower()
+    new_weights = {}
+
+    if "cpns" in text_lower:
+        new_weights["cpns"] = 0.9
+    if "fun math" in text_lower or "fun_math" in text_lower:
+        new_weights["fun_math"] = 0.1
+
+    if not new_weights:
+        new_weights = {"cpns": 1.0}
+
+    total = sum(new_weights.values())
+    if total > 0:
+        for k in new_weights:
+            new_weights[k] = round(new_weights[k] / total, 2)
+
+    total = sum(new_weights.values())
+    if abs(total - 1.0) > 0.01:
+        diff = round(1.0 - total, 2)
+        max_key = max(new_weights, key=new_weights.get)
+        new_weights[max_key] = round(new_weights[max_key] + diff, 2)
+
+    config["content_pillar_weights"] = new_weights
+
+    return {
+        "id": f"iter-{datetime.utcnow().strftime('%Y%m%d%H%M%S')}",
+        "variable_changed": "content_pillar_weights",
+        "previous_value": old_value,
+        "new_value": deepcopy(new_weights),
+        "created_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+    }
