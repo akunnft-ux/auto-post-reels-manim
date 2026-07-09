@@ -383,5 +383,12 @@
     "topik": "ujian_sekolah_smp",
     "content_type": "quiz",
     "tanggal": "2026-07-09"
+  },
+  {
+    "soal": "Jika 1/x + 1/y = ⅙ dengan x, y adalah bilangan bulat positif, berapakah banyaknya pasangan (x, y) yang mungkin?",
+    "jawaban": "B. 9",
+    "topik": "olimpiade_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-09"
   }
 ]
