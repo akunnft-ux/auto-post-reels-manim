@@ -5,7 +5,9 @@ from copy import deepcopy
 
 LEARNING_CONFIG_PATH = os.path.join(os.path.dirname(__file__), "learning_config.json")
 
-VARIABLE_ORDER = ["content_type_weights", "hook_ranking", "cta_ranking", "hashtag_ranking", "posting_schedule", "content_pillar"]
+SMOOTHING_ALPHA = 0.3
+
+VARIABLE_ORDER = ["content_type_weights", "hook_ranking", "cta_ranking", "hashtag_ranking"]
 
 DEFAULT_CONFIG = {
     "content_type_weights": {"quiz": 0.4, "fakta": 0.3, "tips": 0.3},
@@ -70,10 +72,6 @@ def compute_learning_config(current_config: dict, classifications: list, analyti
         iteration = _rank_templates(config, analytics_records, viral_ids, "cta_pool")
     elif variable == "hashtag_ranking":
         iteration = _rank_hashtags(config, analytics_records, viral_ids)
-    elif variable == "posting_schedule":
-        iteration = _update_posting_schedule(config)
-    elif variable == "content_pillar":
-        iteration = _update_content_pillar(config)
 
     if iteration:
         config["variable_rotation_index"] = (rotation_index + 1) % len(VARIABLE_ORDER)
@@ -118,6 +116,17 @@ def _adjust_weights(config: dict, classifications: list, analytics_records: list
     if total > 0:
         for k in new_weights:
             new_weights[k] = round(max(0.1, min(0.7, new_weights[k] / total)), 2)
+
+    total = sum(new_weights.values())
+    if abs(total - 1.0) > 0.01:
+        diff = round(1.0 - total, 2)
+        max_key = max(new_weights, key=new_weights.get)
+        new_weights[max_key] = round(new_weights[max_key] + diff, 2)
+
+    # Apply exponential smoothing: blend old weights with newly computed
+    for k in new_weights:
+        old_val = old_weights.get(k, 0.25)
+        new_weights[k] = round(SMOOTHING_ALPHA * new_weights[k] + (1 - SMOOTHING_ALPHA) * old_val, 2)
 
     total = sum(new_weights.values())
     if abs(total - 1.0) > 0.01:
@@ -185,7 +194,13 @@ def _rank_hashtags(config: dict, analytics_records: list, viral_ids: set) -> dic
 
     scored = []
     for tag in pool:
-        count = sum(1 for pid in viral_ids for r in analytics_records if r.get("post_id") == pid and tag in str(r))
+        count = 0
+        for r in analytics_records:
+            if r.get("post_id") not in viral_ids:
+                continue
+            hashtags = r.get("hashtags_used", "") or ""
+            if tag.lower() in hashtags.lower():
+                count += 1
         scored.append((count, tag))
 
     scored.sort(key=lambda x: x[0], reverse=True)
@@ -202,8 +217,25 @@ def _rank_hashtags(config: dict, analytics_records: list, viral_ids: set) -> dic
 
 def _compute_template_score(template: str, analytics_records: list, viral_ids: set) -> float:
     """Score a template by how often it appears in viral posts."""
-    viral_count = sum(1 for pid in viral_ids for r in analytics_records if r.get("post_id") == pid)
-    return viral_count
+    if not viral_ids:
+        high_engagement = sorted(
+            analytics_records,
+            key=lambda r: (r.get("views", 0) or 0) + (r.get("likes", 0) or 0) * 10,
+            reverse=True,
+        )[:max(3, len(analytics_records) // 3)]
+        relevant_ids = {r["post_id"] for r in high_engagement}
+    else:
+        relevant_ids = viral_ids
+
+    count = 0
+    for r in analytics_records:
+        if r.get("post_id") not in relevant_ids:
+            continue
+        hook = r.get("hook_used", "") or ""
+        cta = r.get("cta_used", "") or ""
+        if template.lower() in hook.lower() or template.lower() in cta.lower():
+            count += 1
+    return count
 
 
 def _update_posting_schedule(config: dict, posting_time_performance: list = None) -> dict:

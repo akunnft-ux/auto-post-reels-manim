@@ -22,8 +22,16 @@ PRODUCT_LINKS_FILE = "data/product_links.json"
 PRODUCT_ASSETS_DIR = "assets/shopee"
 HOOK_ASSETS_DIR = "assets/hooks"
 MAX_HISTORY_ITEMS = 180
-MANIM_TIMEOUT = 600  # Increased from 480 for LaTeX compile overhead
+MANIM_TIMEOUT = 600
 LEARNING_CONFIG_FILE = "self_learning/learning_config.json"
+
+# ── Account strategy (per rekomendasi pemisahan format/tema) ──
+ACCOUNT_TYPE = "personal"
+CONTENT_FORMAT = "manim"
+PERSONAL_MAJOR_CT_WEIGHTS = {"quiz": 0.2, "fakta": 0.4, "tips": 0.4}  # 80% light
+PERSONAL_MINOR_CT_WEIGHTS = {"quiz": 0.8, "fakta": 0.1, "tips": 0.1}  # 20% quiz
+STAGGER_FILE = "data/last_stagger.json"
+STAGGER_MIN_HOURS = 3
 
 HOOK_SECONDS = 2
 PRODUCT_SLIDE_SECONDS = 2
@@ -897,6 +905,42 @@ def post_to_facebook(video_path, caption):
         raise RuntimeError(f"Facebook upload failed: {resp.status_code}")
 
 
+# NOTE: post_to_facebook_profile() — disabled until FB_USER_TOKEN/FB_USER_ID are ready
+
+
+def check_stagger():
+    if not os.path.exists(STAGGER_FILE):
+        return True
+    try:
+        with open(STAGGER_FILE) as f:
+            data = json.load(f)
+        last_time = datetime.fromisoformat(data.get("last_post_time", ""))
+        hours_since = (datetime.now() - last_time).total_seconds() / 3600
+        if hours_since < STAGGER_MIN_HOURS:
+            print(f"[STAGGER] Only {hours_since:.1f}h since last post to other account — skipping (min {STAGGER_MIN_HOURS}h)")
+            return False
+        return True
+    except (ValueError, KeyError, FileNotFoundError):
+        return True
+
+
+def record_stagger():
+    os.makedirs("data", exist_ok=True)
+    with open(STAGGER_FILE, "w") as f:
+        json.dump({"last_post_time": datetime.now().isoformat()}, f)
+
+
+def pick_content_type_for_account():
+    roll = random.random()
+    if roll < 0.8:
+        weights = PERSONAL_MAJOR_CT_WEIGHTS
+    else:
+        weights = PERSONAL_MINOR_CT_WEIGHTS
+    types = list(weights.keys())
+    w = [weights[t] for t in types]
+    return random.choices(types, weights=w, k=1)[0]
+
+
 def post_to_telegram(video_path, caption):
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     chat_id = os.environ.get("TELEGRAM_CHAT_ID")
@@ -1015,6 +1059,7 @@ def load_and_apply_learning_config():
         changed.append("content pillars")
     if changed:
         print(f"[SL] Applied learning config: {', '.join(changed)}")
+    return cfg
 
 
 def process_telegram_csv():
@@ -1117,8 +1162,13 @@ def main():
         print("[STEP] 1/9 Load history")
         history = load_history()
 
+        print("[STEP] 1b/9 Check stagger")
+        if not check_stagger():
+            print("[STAGGER] Skip — too soon since other account post")
+            return
+
         print("[STEP] 2/9 Pick content type & topic")
-        content_type = pick_content_type()
+        content_type = pick_content_type_for_account()
         topic = pick_topic(history)
         hook = get_hook(content_type)
         hook_image = pick_hook_image()
@@ -1134,14 +1184,6 @@ def main():
         caption = build_caption(narasi, topic, content_type, hook)
         compliance_check(caption)
         print(f"  Caption OK ({len(caption)} chars)")
-
-        print("[STEP] 4b/9 Pre-render answer verification")
-        verify_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-        if not _verify_answer_factually(narasi["soal"], narasi["pilihan"], narasi["jawaban"], verify_client, content_type):
-            print("[WARN] Second verification failed. Regenerating content...")
-            narasi = generate_narasi(topic, history, content_type, max_retry=5)
-            caption = build_caption(narasi, topic, content_type, hook)
-            compliance_check(caption)
 
         print("[STEP] 5/9 Pick product rotation")
         product = pick_product()
@@ -1177,7 +1219,7 @@ def main():
         print(f"  Mode: {mode}")
 
         if mode == "facebook":
-            print("[STEP] 10/9 Post to Facebook Reels")
+            print("[STEP] 10/9 Post to Facebook Page")
             result = post_to_facebook(final_video, caption)
             post_id = result.get("id", "unknown")
         else:
@@ -1194,6 +1236,9 @@ def main():
             "topik": topic,
             "content_type": content_type,
             "tanggal": date.today().isoformat(),
+            "account_type": ACCOUNT_TYPE,
+            "format": CONTENT_FORMAT,
+            "theme": topic,
         }
         history.append(entry)
         save_history(history)

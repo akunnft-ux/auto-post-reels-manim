@@ -84,6 +84,19 @@ def _map_columns(lowered: list, original: list) -> dict:
             mapping["comments"] = original[i]
         elif any(t in hl for t in ["shares", "bagikan", "share"]):
             mapping["shares"] = original[i]
+        elif any(t in hl for t in ["hook used", "hook_used", "hook"]):
+            if "hashtag" not in hl and "cta" not in hl:
+                mapping["hook_used"] = original[i]
+        elif any(t in hl for t in ["cta used", "cta_used", "cta"]):
+            mapping["cta_used"] = original[i]
+        elif any(t in hl for t in ["hashtags used", "hashtags_used", "hashtags"]):
+            mapping["hashtags_used"] = original[i]
+        elif any(t in hl for t in ["account_type", "account type", "akun", "jenis akun"]):
+            mapping["account_type"] = original[i]
+        elif any(t in hl for t in ["format", "content format", "content_format", "format konten"]):
+            mapping["format"] = original[i]
+        elif any(t in hl for t in ["theme", "tema", "content_theme", "content theme", "topik konten"]):
+            mapping["theme"] = original[i]
 
     has_views = "views" in mapping
     has_likes = "likes" in mapping
@@ -112,6 +125,10 @@ def _extract_record(row: dict, col_map: dict) -> dict:
         engagement = (likes or 0) + (comments or 0) + (shares or 0)
         engagement_rate = round(engagement / views, 4) if views and views > 0 else 0.0
 
+        account_type = str(row.get(col_map.get("account_type", ""), "")).strip()
+        format_ = str(row.get(col_map.get("format", ""), "")).strip()
+        theme = str(row.get(col_map.get("theme", ""), "")).strip()
+
         return {
             "post_id": post_id,
             "platform": "facebook",
@@ -120,6 +137,9 @@ def _extract_record(row: dict, col_map: dict) -> dict:
             "comments": comments or 0,
             "shares": shares or 0,
             "engagement_rate": engagement_rate,
+            "account_type": account_type if account_type else None,
+            "format": format_ if format_ else None,
+            "theme": theme if theme else None,
             "source": "manual",
             "fetched_at": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
         }
@@ -142,6 +162,8 @@ def _parse_csv_via_gemini(raw: str) -> list:
         "Parse CSV Facebook Insights berikut. "
         "Ekstrak data setiap post: post_id (atau post_text jika tidak ada ID), "
         "post_date, views (impressions/reach), likes (reactions), comments, shares. "
+        "Jika ada kolom account_type (personal/page), format (slide/manim/gambar), "
+        "atau theme (cpns/utbk/anbk/tips_trik/fun_fact), ekstrak juga. "
         "Kembalikan JSON array of objects dengan format:\n"
         '[{"post_id":"...","views":100,"likes":5,"comments":1,"shares":0}]\n'
         "Jika tidak bisa parse, kembalikan [].\n\n"
@@ -161,6 +183,9 @@ def _parse_csv_via_gemini(raw: str) -> list:
                 r["engagement_rate"] = 0.0
                 r["source"] = "manual"
                 r["fetched_at"] = now
+                r.setdefault("account_type", None)
+                r.setdefault("format", None)
+                r.setdefault("theme", None)
                 views = r.get("views", 0) or 0
                 eng = (r.get("likes", 0) or 0) + (r.get("comments", 0) or 0) + (r.get("shares", 0) or 0)
                 r["engagement_rate"] = round(eng / views, 4) if views > 0 else 0.0
