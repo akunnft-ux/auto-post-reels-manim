@@ -407,5 +407,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "fungsi_grafik"
+  },
+  {
+    "soal": "Manakah nilai x yang memenuhi persamaan (x - 2)² = (2 - x)²?",
+    "jawaban": "C. Semua bilangan real",
+    "topik": "tka_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-10",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_smp"
   }
 ]
