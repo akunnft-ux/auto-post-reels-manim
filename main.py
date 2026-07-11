@@ -45,17 +45,13 @@ TOPICS = {
     "deret_angka": "Deret Angka",
     "aritmatika_aljabar": "Aritmatika & Aljabar",
     "peluang_statistika": "Peluang & Statistika",
-    "geometri": "Geometri",
     "fungsi_grafik": "Fungsi & Grafik",
     "olimpiade_sd": "Olimpiade SD",
     "olimpiade_smp": "Olimpiade SMP",
-    "olimpiade_sma": "Olimpiade SMA",
     "ujian_sekolah_sd": "Ujian Sekolah SD",
     "ujian_sekolah_smp": "Ujian Sekolah SMP",
-    "ujian_sekolah_sma": "Ujian Sekolah SMA",
     "tka_sd": "TKA SD",
     "tka_smp": "TKA SMP",
-    "tka_sma": "TKA SMA",
 }
 
 FONT_BOLD = "fonts/DejaVuSans-Bold.ttf"
@@ -68,17 +64,13 @@ TOPIC_BG = {
     "deret_angka": "#FF6B9D", 
     "aritmatika_aljabar": "#FF8C42", 
     "peluang_statistika": "#A8E6CF", 
-    "geometri": "#7EC8E3", 
     "fungsi_grafik": "#DDA0DD",
     "olimpiade_sd": "#F9D423",
     "olimpiade_smp": "#B8E986",
-    "olimpiade_sma": "#F08080",
     "ujian_sekolah_sd": "#87CEEB",
     "ujian_sekolah_smp": "#D8BFD8",
-    "ujian_sekolah_sma": "#FFA07A",
     "tka_sd": "#AFEEEE",
     "tka_smp": "#FFD700",
-    "tka_sma": "#ADD8E6",
 }
 TOPIC_TEXT = "#FFFFFF"
 SOAL_TEXT = "#2C3E50"
@@ -129,10 +121,12 @@ CTA_POOL = [
 ]
 
 HASHTAG_POOL = [
-    "#SoalMatematika", "#CPNS2026", "#BelajarMatematika",
-    "#MatematikaDasar", "#CPNS", "#TIUCPNS", "#SKDCPNS",
-    "#TryoutCPNS", "#RuangBelajar", "#Matematika",
-    "#LatihanCPNS", "#StudiCPNS",
+    "#SoalMatematika", "#BelajarMatematika",
+    "#MatematikaSD", "#MatematikaSMP",
+    "#RuangBelajar", "#Matematika",
+    "#OlimpiadeSD", "#OlimpiadeSMP",
+    "#UjianSekolah", "#LatihanSoal",
+    "#BelajarBareng", "#TipsMatematika",
 ]
 
 
@@ -427,8 +421,16 @@ def generate_narasi(topic, history, content_type, max_retry=3):
     topic_label = TOPICS[topic]
     recent = history[-20:] if history else []
 
+    # Determine level label and difficulty based on topic
+    if "_sd" in topic:
+        level_label = "SD"
+        difficulty = "mudah-sedang (SD)"
+    else:
+        level_label = "SMP"
+        difficulty = "sedang (SMP)"
+
     if content_type == "quiz":
-        prompt = f"""Buat 1 soal matematika untuk persiapan CPNS/TKA/SNBT dengan topik {topic_label}.
+        prompt = f"""Buat 1 soal matematika tingkat {level_label} dengan topik {topic_label}.
 
 Soal harus berbentuk pilihan ganda dengan 4 opsi (A, B, C, D). Buat soal yang agak menjebak dan banyak orang salah menjawabnya.
 
@@ -446,7 +448,7 @@ Format output JSON:
 
 Aturan:
 - Soal dalam Bahasa Indonesia
-- Tingkat kesulitan sedang-cukup sulit (CPNS/TKA/SNBT)
+- Tingkat kesulitan {difficulty}
 - Jawaban harus sesuai dengan salah satu pilihan (teks lengkap)
 - Jangan buat soal yang sama dengan soal-soal sebelumnya
 - Soal sebelumnya: {json.dumps(recent, ensure_ascii=False)}
@@ -485,7 +487,7 @@ Aturan:
 - TAMBAHKAN soal_latex, jawaban_latex, dan penjelasan_latex (string LaTeX murni, gunakan \\text{{}} untuk teks naratif)
 - Backslash di JSON: tulis \\\\ untuk setiap backslash. Contoh LaTeX \\sqrt{{2}} ditulis sebagai "\\\\sqrt{{2}}" dalam JSON"""
     else:
-        prompt = f"""Buat 1 tips/trik cepat matematika untuk persiapan CPNS/TKA/SNBT dengan topik {topic_label}.
+        prompt = f"""Buat 1 tips/trik cepat matematika tingkat {level_label} dengan topik {topic_label}.
 
 Format output JSON:
 {{

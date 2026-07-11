@@ -285,13 +285,15 @@ def _update_content_pillar(config: dict, content_pillar_recommendations: str = N
     text_lower = content_pillar_recommendations.lower()
     new_weights = {}
 
-    if "cpns" in text_lower:
-        new_weights["cpns"] = 0.9
+    if "sd" in text_lower:
+        new_weights["sd"] = 0.5
+    if "smp" in text_lower:
+        new_weights["smp"] = 0.5
     if "fun math" in text_lower or "fun_math" in text_lower:
         new_weights["fun_math"] = 0.1
 
     if not new_weights:
-        new_weights = {"cpns": 1.0}
+        new_weights = {"sd": 0.5, "smp": 0.5}
 
     total = sum(new_weights.values())
     if total > 0:

@@ -17,7 +17,6 @@ TOPIC_COLORS = {
     "deret_angka": "#FF6B9D",
     "aritmatika_aljabar": "#FFA94D",
     "peluang_statistika": "#51CF66",
-    "geometri": "#4DABF7",
     "fungsi_grafik": "#9775FA",
 }
 

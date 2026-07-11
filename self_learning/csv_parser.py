@@ -163,7 +163,7 @@ def _parse_csv_via_gemini(raw: str) -> list:
         "Ekstrak data setiap post: post_id (atau post_text jika tidak ada ID), "
         "post_date, views (impressions/reach), likes (reactions), comments, shares. "
         "Jika ada kolom account_type (personal/page), format (slide/manim/gambar), "
-        "atau theme (cpns/utbk/anbk/tips_trik/fun_fact), ekstrak juga. "
+        "atau theme (sd/smp/tips_trik/fun_fact), ekstrak juga. "
         "Kembalikan JSON array of objects dengan format:\n"
         '[{"post_id":"...","views":100,"likes":5,"comments":1,"shares":0}]\n'
         "Jika tidak bisa parse, kembalikan [].\n\n"
