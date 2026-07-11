@@ -427,5 +427,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Apakah ada bilangan yang jika dikuadratkan hasilnya negatif?",
+    "jawaban": "Ada, bilangan imajiner",
+    "topik": "tka_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-11",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_smp"
   }
 ]
