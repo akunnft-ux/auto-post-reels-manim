@@ -417,5 +417,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_smp"
+  },
+  {
+    "soal": "Jumlah semua bilangan asli dari 1 sampai tak hingga adalah -¹⁄₁₂. Apakah ini benar?",
+    "jawaban": "Benar, melalui deret Ramanujan",
+    "topik": "olimpiade_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-11",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
