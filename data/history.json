@@ -437,5 +437,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_smp"
+  },
+  {
+    "soal": "Berapakah hasil dari 35² dengan cara cepat tanpa mengalikan bersusun?",
+    "jawaban": "C. Kalikan 3 dengan angka setelahnya",
+    "topik": "aritmatika_aljabar",
+    "content_type": "tips",
+    "tanggal": "2026-07-12",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "aritmatika_aljabar"
   }
 ]
