@@ -723,18 +723,31 @@ def draw_rounded_rect(draw, xy, radius, fill):
     draw.rounded_rectangle(xy, radius=radius, fill=fill)
 
 
-def render_frame_hook(hook_text, topic, output_path, hook_image_path=None):
-    img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), hex_to_rgb(HEADER_BG))
+CONTENT_HOOK_BG = {
+    "quiz": "#1B3A5C",
+    "fakta": "#2D5016",
+    "tips": "#4A1B5C",
+}
+CONTENT_HOOK_ACCENT = {
+    "quiz": "#FF6B6B",
+    "fakta": "#FFA94D",
+    "tips": "#4ECDC4",
+}
+
+def render_frame_hook(hook_text, topic, output_path, hook_image_path=None, content_type="quiz"):
+    bg_color = CONTENT_HOOK_BG.get(content_type, HEADER_BG)
+    accent_color = CONTENT_HOOK_ACCENT.get(content_type, "#FF8C42")
+
+    img = Image.new("RGB", (IMG_WIDTH, IMG_HEIGHT), hex_to_rgb(bg_color))
     draw = ImageDraw.Draw(img)
 
     font_big = ImageFont.truetype(FONT_BOLD, 72)
     font_sub = ImageFont.truetype(FONT_REGULAR, 32)
     font_badge = ImageFont.truetype(FONT_BOLD, 28)
 
-    accent = TOPIC_BG.get(topic, "#FF8C42")
-    accent_rgb = hex_to_rgb(accent)
+    accent_rgb = hex_to_rgb(accent_color)
 
-    overlay = Image.new("RGBA", (IMG_WIDTH, IMG_HEIGHT), (*accent_rgb, 30))
+    overlay = Image.new("RGBA", (IMG_WIDTH, IMG_HEIGHT), (*accent_rgb, 60))
     img.paste(overlay, (0, 0), overlay)
 
     # Render Hook Image at the bottom
@@ -800,7 +813,7 @@ def render_product_slides(product, tmpdir):
     return slides
 
 
-def composite_hook_and_products(manim_video, output_path, hook_text, topic, product, hook_image_path=None):
+def composite_hook_and_products(manim_video, output_path, hook_text, topic, product, hook_image_path=None, content_type="quiz"):
     from moviepy import ImageClip, VideoFileClip, concatenate_videoclips
 
     tmpdir = tempfile.mkdtemp()
@@ -810,7 +823,7 @@ def composite_hook_and_products(manim_video, output_path, hook_text, topic, prod
         if hook_text:
             try:
                 hook_frame = os.path.join(tmpdir, "hook.png")
-                render_frame_hook(hook_text, topic, hook_frame, hook_image_path)
+                render_frame_hook(hook_text, topic, hook_frame, hook_image_path, content_type)
                 hook_clip = ImageClip(hook_frame, duration=HOOK_SECONDS)
                 clips.append(hook_clip)
                 print(f"[INFO] Hook frame rendered ({HOOK_SECONDS}s)")
@@ -1209,7 +1222,7 @@ def main():
 
         print("[STEP] 7/9 Composite hook + products + manim")
         wrapped_video = os.path.join(tmpdir, "wrapped_scene.mp4")
-        composite_hook_and_products(raw_video, wrapped_video, hook, topic, product, hook_image)
+        composite_hook_and_products(raw_video, wrapped_video, hook, topic, product, hook_image, content_type)
 
         print("[STEP] 8/9 Composite BGM")
         bgm_video = os.path.join(tmpdir, "bgm_scene.mp4")
