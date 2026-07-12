@@ -447,5 +447,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "aritmatika_aljabar"
+  },
+  {
+    "soal": "Berapakah nilai x yang memenuhi persamaan |x - 2| = x - 2?",
+    "jawaban": "A. x ≥ 2",
+    "topik": "olimpiade_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-12",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
