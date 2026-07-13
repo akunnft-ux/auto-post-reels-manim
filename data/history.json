@@ -457,5 +457,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Sebuah dadu dilempar dua kali. Berapakah peluang munculnya mata dadu berjumlah 6?",
+    "jawaban": "A. ⁵⁄₃₆",
+    "topik": "peluang_statistika",
+    "content_type": "quiz",
+    "tanggal": "2026-07-13",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "peluang_statistika"
   }
 ]
