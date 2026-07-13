@@ -467,5 +467,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "peluang_statistika"
+  },
+  {
+    "soal": "Jumlah semua bilangan asli hingga tak hingga 1+2+3+4+... secara mengejutkan bernilai -¹⁄₁₂ dalam fisika kuantum.",
+    "jawaban": "-¹⁄₁₂",
+    "topik": "olimpiade_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-13",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
