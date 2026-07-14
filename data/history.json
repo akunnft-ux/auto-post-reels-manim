@@ -497,5 +497,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Berapa banyak orang yang dibutuhkan dalam satu ruangan agar peluang dua orang berulang tahun di hari yang sama mencapai 50%?",
+    "jawaban": "23 orang",
+    "topik": "peluang_statistika",
+    "content_type": "fakta",
+    "tanggal": "2026-07-14",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "peluang_statistika"
   }
 ]
