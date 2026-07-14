@@ -312,7 +312,7 @@ class FaktaScene(Scene):
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
         # Phase 2: Fakta statement
-        fakta_group = render_equation(
+        fakta_group = render_wrapped_latex(
             soal_latex,
             max_width=config.frame_width - 0.6,
             font_size=36,
@@ -362,7 +362,7 @@ class TipsScene(Scene):
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
         # Phase 2: Tip
-        tip_group = render_equation(
+        tip_group = render_wrapped_latex(
             soal_latex,
             max_width=config.frame_width - 0.6,
             font_size=36,
