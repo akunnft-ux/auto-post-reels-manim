@@ -527,5 +527,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_sd"
+  },
+  {
+    "soal": "Apakah angka 0 memiliki kebalikan atau invers perkalian?",
+    "jawaban": "Tidak, karena ¹⁄₀ tidak terdefinisi",
+    "topik": "ujian_sekolah_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-14",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_smp"
   }
 ]
