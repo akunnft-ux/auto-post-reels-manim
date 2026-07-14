@@ -517,5 +517,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_sd"
+  },
+  {
+    "soal": "Berapakah hasil dari 25² + 15²?",
+    "jawaban": "C. Pakai (a+b)² - 2ab",
+    "topik": "ujian_sekolah_sd",
+    "content_type": "tips",
+    "tanggal": "2026-07-14",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_sd"
   }
 ]
