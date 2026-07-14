@@ -487,5 +487,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "aritmatika_aljabar"
+  },
+  {
+    "soal": "Berapakah hasil dari 2024² - 2023² tanpa menggunakan kalkulator?",
+    "jawaban": "C. Gunakan rumus a² - b² = (a-b)(a+b)",
+    "topik": "olimpiade_smp",
+    "content_type": "tips",
+    "tanggal": "2026-07-14",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
