@@ -276,7 +276,7 @@ class QuizScene(Scene):
         penjelasan_group = render_wrapped_latex(
             penjelasan_latex,
             max_width=config.frame_width - 0.6,
-            font_size=32,
+            font_size=28,
             color="#636E72",
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
