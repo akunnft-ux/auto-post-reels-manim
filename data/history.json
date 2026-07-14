@@ -477,5 +477,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Berapakah hasil dari perkalian cepat 35 × 35?",
+    "jawaban": "C. Angka depan × (depan+1) lalu beri 25",
+    "topik": "aritmatika_aljabar",
+    "content_type": "tips",
+    "tanggal": "2026-07-14",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "aritmatika_aljabar"
   }
 ]
