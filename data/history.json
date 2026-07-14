@@ -507,5 +507,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "peluang_statistika"
+  },
+  {
+    "soal": "Ada berapa banyak angka 1 yang digunakan untuk menulis bilangan 1 sampai 100?",
+    "jawaban": "C. 20",
+    "topik": "olimpiade_sd",
+    "content_type": "quiz",
+    "tanggal": "2026-07-14",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_sd"
   }
 ]
