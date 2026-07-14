@@ -22,6 +22,7 @@ TOPIC_COLORS = {
 
 CHARS_PER_UNIT = {
     28: 14, 24: 16, 22: 18, 20: 20, 26: 15, 32: 12, 36: 10,
+    34: 11, 38: 9, 40: 8, 18: 22, 16: 26,
 }
 
 
@@ -173,11 +174,11 @@ class QuizScene(Scene):
         topic_badge.next_to(title_group, DOWN, buff=0.3)
         self.play(FadeIn(topic_badge, scale=0.8), run_time=0.5)
 
-        processed_soal = _split_text_blocks(soal_latex)
+        processed_soal = _split_text_blocks(soal_latex, max_chars=14)
         soal_eq = render_wrapped_latex(
             processed_soal,
             max_width=config.frame_width - 0.6,
-            font_size=26,
+            font_size=36,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -209,10 +210,10 @@ class QuizScene(Scene):
             opt_rendered = render_equation(
                 opt_latex_clean,
                 max_width=config.frame_width - 2.0,
-                font_size=26,
+                font_size=32,
                 color=colors["main"],
             )
-            label = Text(f"{option_labels[i]}.", font_size=24, color=colors["accent"], weight=BOLD)
+            label = Text(f"{option_labels[i]}.", font_size=28, color=colors["accent"], weight=BOLD)
             card_h = max(opt_rendered.height + 0.3, 0.5)
             card = Rectangle(
                 width=config.frame_width - 0.6,
@@ -249,16 +250,16 @@ class QuizScene(Scene):
 
         jawaban_card = Rectangle(
             width=config.frame_width - 0.6,
-            height=0.9,
+            height=1.2,
             color=colors["accent"],
             fill_opacity=0.15,
         )
         if jawaban_label_prefix:
-            label_part = Text(f"{jawaban_label_prefix}.", font_size=24, color=colors["accent"], weight=BOLD)
+            label_part = Text(f"{jawaban_label_prefix}.", font_size=28, color=colors["accent"], weight=BOLD)
             text_part = render_equation(
                 jawaban_latex,
                 max_width=config.frame_width - 1.5,
-                font_size=26,
+                font_size=32,
                 color=colors["main"],
                 highlight_color=colors["accent"],
                 highlight_substrings=["x"],
@@ -275,7 +276,7 @@ class QuizScene(Scene):
         penjelasan_group = render_wrapped_latex(
             penjelasan_latex,
             max_width=config.frame_width - 0.6,
-            font_size=26,
+            font_size=32,
             color="#636E72",
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -314,7 +315,7 @@ class FaktaScene(Scene):
         fakta_group = render_equation(
             soal_latex,
             max_width=config.frame_width - 0.6,
-            font_size=26,
+            font_size=36,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -330,7 +331,7 @@ class FaktaScene(Scene):
             run_time=1.0,
         )
 
-        penjelasan_group = wrap_text(penjelasan, 15, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = wrap_text(penjelasan, 24, config.frame_width - 0.6, color="#636E72", buff=0.08)
         penjelasan_group.next_to(fakta_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
         self.wait(5.0)
@@ -364,7 +365,7 @@ class TipsScene(Scene):
         tip_group = render_equation(
             soal_latex,
             max_width=config.frame_width - 0.6,
-            font_size=26,
+            font_size=36,
             color=colors["main"],
             highlight_color=colors["accent"],
             highlight_substrings=["x"],
@@ -380,7 +381,7 @@ class TipsScene(Scene):
             run_time=1.0,
         )
 
-        penjelasan_group = wrap_text(penjelasan, 15, config.frame_width - 0.6, color="#636E72", buff=0.08)
+        penjelasan_group = wrap_text(penjelasan, 24, config.frame_width - 0.6, color="#636E72", buff=0.08)
         penjelasan_group.next_to(tip_group, DOWN, buff=0.4)
         self.play(Write(penjelasan_group), run_time=1.5)
         self.wait(5.0)
