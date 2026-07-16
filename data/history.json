@@ -567,5 +567,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "aritmatika_aljabar"
+  },
+  {
+    "soal": "Manakah nilai x yang memenuhi persamaan √x² = -5?",
+    "jawaban": "D. Tidak ada nilai x yang memenuhi",
+    "topik": "tka_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-16",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_smp"
   }
 ]
