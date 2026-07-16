@@ -557,5 +557,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_sd"
+  },
+  {
+    "soal": "Berapakah hasil dari perkalian cepat 15 x 15?",
+    "jawaban": "C. Metode akhiran 5 (n(n+1) lalu 25)",
+    "topik": "aritmatika_aljabar",
+    "content_type": "tips",
+    "tanggal": "2026-07-16",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "aritmatika_aljabar"
   }
 ]
