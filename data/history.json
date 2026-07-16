@@ -547,5 +547,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_sd"
+  },
+  {
+    "soal": "Apakah kamu tahu bahwa angka 0 sebenarnya bukan bilangan asli?",
+    "jawaban": "0 adalah bilangan cacah",
+    "topik": "tka_sd",
+    "content_type": "fakta",
+    "tanggal": "2026-07-16",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_sd"
   }
 ]
