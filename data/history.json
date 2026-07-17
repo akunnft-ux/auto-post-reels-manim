@@ -577,5 +577,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_smp"
+  },
+  {
+    "soal": "Berapakah nilai rata-rata dari data 7, 8, 9, 10, 11 tanpa menjumlahkan semuanya?",
+    "jawaban": "C. Gunakan nilai tengah (rata-rata)",
+    "topik": "peluang_statistika",
+    "content_type": "tips",
+    "tanggal": "2026-07-17",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "peluang_statistika"
   }
 ]
