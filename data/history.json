@@ -607,5 +607,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Tentukan angka berikutnya dari deret: 2, 3, 5, 7, 11, x",
+    "jawaban": "B. 13",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-07-18",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
