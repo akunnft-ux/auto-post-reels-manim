@@ -173,7 +173,13 @@ def get_used_topics_today(history):
 
 
 def is_duplicate(soal_text, history):
-    return any(h["soal"] == soal_text for h in history)
+    soal_norm = soal_text.strip()
+    for h in history:
+        h_soal = h.get("soal", "")
+        if h_soal.strip() == soal_norm:
+            print(f"  [DUP] Exact match: '{soal_text[:100]}' == '{h_soal[:100]}'")
+            return True
+    return False
 
 
 def pick_topic(history):
@@ -412,7 +418,7 @@ def _validate_latex(latex_str):
         return False
 
 
-def generate_narasi(topic, history, content_type, max_retry=3):
+def generate_narasi(topic, history, content_type, max_retry=5):
     api_key = os.environ.get("GEMINI_API_KEY")
     if not api_key:
         raise ValueError("GEMINI_API_KEY not set")
