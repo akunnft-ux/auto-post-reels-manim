@@ -597,5 +597,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_sd"
+  },
+  {
+    "soal": "Berapakah jumlah akar-akar real dari persamaan √x² = x - 2?",
+    "jawaban": "D. Tidak ada",
+    "topik": "olimpiade_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-18",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
