@@ -109,18 +109,22 @@ def wrap_text(
     weight=NORMAL,
     buff=0.1,
     align=LEFT,
+    max_words: int = 4,
 ) -> VGroup:
     chars_per_line = CHARS_PER_UNIT.get(font_size, int(max_width * 5))
     words = text.split()
     lines = []
     current = []
     for word in words:
-        test = " ".join(current + [word]) if current else word
-        if len(test) > chars_per_line and current:
+        if len(current) >= max_words and current:
+            lines.append(" ".join(current))
+            current = []
+        current.append(word)
+        test = " ".join(current)
+        if len(test) > chars_per_line and len(current) > 1:
+            current.pop()
             lines.append(" ".join(current))
             current = [word]
-        else:
-            current.append(word)
     if current:
         lines.append(" ".join(current))
     texts = [Text(l, font_size=font_size, color=color, weight=weight) for l in lines]
@@ -273,8 +277,9 @@ class QuizScene(Scene):
         jawaban_group.next_to(header3, DOWN, buff=0.4)
         self.play(Create(jawaban_card), Write(jawaban_content), run_time=1.0)
 
+        processed_penjelasan = _split_text_blocks(penjelasan_latex, max_chars=14)
         penjelasan_group = render_wrapped_latex(
-            penjelasan_latex,
+            processed_penjelasan,
             max_width=config.frame_width - 0.6,
             font_size=28,
             color="#636E72",
