@@ -627,5 +627,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_sd"
+  },
+  {
+    "soal": "Jika kita menjumlahkan seluruh bilangan asli 1+2+3+... sampai tak hingga, hasilnya adalah -¹⁄₁₂.",
+    "jawaban": "-¹⁄₁₂",
+    "topik": "deret_angka",
+    "content_type": "fakta",
+    "tanggal": "2026-07-19",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
