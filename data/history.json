@@ -637,5 +637,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Berapakah jumlah 100 bilangan asli pertama (1+2+3+...+100)?",
+    "jawaban": "C. Trik pasangkan angka: (n(n+1))/2",
+    "topik": "deret_angka",
+    "content_type": "tips",
+    "tanggal": "2026-07-20",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
