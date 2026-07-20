@@ -647,5 +647,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Apakah angka 0 termasuk bilangan genap? Banyak orang sering salah mengira.",
+    "jawaban": "Bilangan genap",
+    "topik": "ujian_sekolah_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-20",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_smp"
   }
 ]
