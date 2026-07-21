@@ -667,5 +667,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Berapakah hasil dari 16 ÷ 2 × (8 - 4)?",
+    "jawaban": "C. 32",
+    "topik": "ujian_sekolah_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-21",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_smp"
   }
 ]
