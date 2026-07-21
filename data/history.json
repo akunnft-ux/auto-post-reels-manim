@@ -657,5 +657,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_smp"
+  },
+  {
+    "soal": "Apakah ada bilangan bulat positif yang jika dijumlahkan nilainya sama dengan hasil kalinya?",
+    "jawaban": "Ada, yaitu 1, 2, dan 3",
+    "topik": "olimpiade_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-21",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
