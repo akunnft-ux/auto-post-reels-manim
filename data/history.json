@@ -687,5 +687,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_sd"
+  },
+  {
+    "soal": "Berapakah jumlah 10 bilangan asli pertama (1+2+3+...+10)?",
+    "jawaban": "C. Trik: (n × (n+1)) / 2",
+    "topik": "deret_angka",
+    "content_type": "tips",
+    "tanggal": "2026-07-22",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
