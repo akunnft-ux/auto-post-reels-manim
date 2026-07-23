@@ -697,5 +697,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Berapakah hasil dari 25 × 12?",
+    "jawaban": "C. Bagi angka genap dengan 2, kali 5",
+    "topik": "tka_sd",
+    "content_type": "tips",
+    "tanggal": "2026-07-23",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_sd"
   }
 ]
