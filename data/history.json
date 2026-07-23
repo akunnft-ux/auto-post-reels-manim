@@ -707,5 +707,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_sd"
+  },
+  {
+    "soal": "Berapa banyak digit terakhir dari 2²⁰²⁴ yang berulang secara siklus?",
+    "jawaban": "4 digit",
+    "topik": "olimpiade_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-23",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
