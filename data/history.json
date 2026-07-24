@@ -717,5 +717,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Berapa banyak angka 0 yang tertulis jika kita menulis bilangan 1 sampai 100?",
+    "jawaban": "C. 11",
+    "topik": "olimpiade_sd",
+    "content_type": "quiz",
+    "tanggal": "2026-07-24",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_sd"
   }
 ]
