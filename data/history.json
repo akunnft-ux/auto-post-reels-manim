@@ -747,5 +747,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_sd"
+  },
+  {
+    "soal": "Apakah hasil penjumlahan deret tak hingga 1+2+3+4+... sama dengan -¹⁄₁₂?",
+    "jawaban": "Ya, menurut teori Ramanujan",
+    "topik": "aritmatika_aljabar",
+    "content_type": "fakta",
+    "tanggal": "2026-07-25",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "aritmatika_aljabar"
   }
 ]
