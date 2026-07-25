@@ -737,5 +737,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Berapakah hasil dari 25 × 12 dengan cara cepat?",
+    "jawaban": "C. Bagi angka genap dengan 4",
+    "topik": "tka_sd",
+    "content_type": "tips",
+    "tanggal": "2026-07-25",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_sd"
   }
 ]
