@@ -777,5 +777,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_smp"
+  },
+  {
+    "soal": "Berapakah hasil penjumlahan deret bilangan ganjil 1 + 3 + 5 + 7 + 9?",
+    "jawaban": "C. Mengkuadratkan jumlah suku (n²)",
+    "topik": "deret_angka",
+    "content_type": "tips",
+    "tanggal": "2026-07-27",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
