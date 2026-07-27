@@ -787,5 +787,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Berapakah hasil dari 100 - 100 × 0 + 10 ÷ 10?",
+    "jawaban": "B. 101",
+    "topik": "tka_smp",
+    "content_type": "quiz",
+    "tanggal": "2026-07-27",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_smp"
   }
 ]
