@@ -797,5 +797,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_smp"
+  },
+  {
+    "soal": "Apakah ada angka yang jika dikalikan 9 akan menghasilkan urutan angka 1, 2, 3, 4, 5, 6, 7, 9?",
+    "jawaban": "12.345.679",
+    "topik": "olimpiade_sd",
+    "content_type": "fakta",
+    "tanggal": "2026-07-28",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_sd"
   }
 ]
