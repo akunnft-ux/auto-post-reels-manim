@@ -807,5 +807,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_sd"
+  },
+  {
+    "soal": "Tentukan titik potong fungsi linear y = 3x - 6 dengan sumbu-x.",
+    "jawaban": "C. Gunakan rumus -b/a untuk nilai x",
+    "topik": "fungsi_grafik",
+    "content_type": "tips",
+    "tanggal": "2026-07-28",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "fungsi_grafik"
   }
 ]
