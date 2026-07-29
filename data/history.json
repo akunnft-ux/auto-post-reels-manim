@@ -817,5 +817,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "fungsi_grafik"
+  },
+  {
+    "soal": "Tahukah Anda bahwa grafik fungsi f(x) = 1/x tidak pernah menyentuh sumbu x maupun sumbu y meskipun terus mendekatinya?",
+    "jawaban": "Disebut kurva asimtotik",
+    "topik": "fungsi_grafik",
+    "content_type": "fakta",
+    "tanggal": "2026-07-29",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "fungsi_grafik"
   }
 ]
