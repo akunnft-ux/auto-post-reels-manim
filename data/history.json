@@ -827,5 +827,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "fungsi_grafik"
+  },
+  {
+    "soal": "Berapakah hasil dari 2 + 2 × 2?",
+    "jawaban": "B. 6",
+    "topik": "tka_sd",
+    "content_type": "quiz",
+    "tanggal": "2026-07-29",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_sd"
   }
 ]
