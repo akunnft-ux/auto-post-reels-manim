@@ -847,5 +847,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_sd"
+  },
+  {
+    "soal": "Apakah ada bilangan yang jika dikalikan dirinya sendiri hasilnya negatif?",
+    "jawaban": "Ada, yaitu bilangan imajiner",
+    "topik": "tka_smp",
+    "content_type": "fakta",
+    "tanggal": "2026-07-30",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_smp"
   }
 ]
