@@ -837,5 +837,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_sd"
+  },
+  {
+    "soal": "Apakah hasil dari penjumlahan angka 1 sampai 100 secara berurutan?",
+    "jawaban": "5.050",
+    "topik": "ujian_sekolah_sd",
+    "content_type": "fakta",
+    "tanggal": "2026-07-30",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_sd"
   }
 ]
