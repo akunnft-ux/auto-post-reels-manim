@@ -857,5 +857,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_smp"
+  },
+  {
+    "soal": "Jika kita menjumlahkan seluruh bilangan asli 1+2+3+... sampai tak hingga, hasilnya bukan tak hingga, melainkan angka berikut.",
+    "jawaban": "-¹⁄₁₂",
+    "topik": "deret_angka",
+    "content_type": "fakta",
+    "tanggal": "2026-07-31",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
