@@ -877,5 +877,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "aritmatika_aljabar"
+  },
+  {
+    "soal": "Berapakah nilai rata-rata dari data 10, 12, 14, 16, 18?",
+    "jawaban": "C. Ambil nilai tengah untuk data urut",
+    "topik": "peluang_statistika",
+    "content_type": "tips",
+    "tanggal": "2026-08-01",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "peluang_statistika"
   }
 ]
