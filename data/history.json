@@ -867,5 +867,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Berapakah hasil dari perkalian cepat 15 x 15 menggunakan metode kuadrat?",
+    "jawaban": "C. Akhiri dengan 25 dan kalikan n(n+1)",
+    "topik": "aritmatika_aljabar",
+    "content_type": "tips",
+    "tanggal": "2026-08-01",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "aritmatika_aljabar"
   }
 ]
