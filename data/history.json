@@ -897,5 +897,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "peluang_statistika"
+  },
+  {
+    "soal": "Apakah ada angka yang jika dikalikan dengan dirinya sendiri hasilnya tetap angka itu sendiri?",
+    "jawaban": "Angka 0 dan 1",
+    "topik": "olimpiade_sd",
+    "content_type": "fakta",
+    "tanggal": "2026-08-02",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_sd"
   }
 ]
