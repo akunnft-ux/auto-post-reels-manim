@@ -887,5 +887,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "peluang_statistika"
+  },
+  {
+    "soal": "Dalam sebuah kelas berisi 10 siswa, berapa banyak cara memilih ketua dan wakil ketua kelas?",
+    "jawaban": "C. Cukup kalikan 10 dengan 9",
+    "topik": "peluang_statistika",
+    "content_type": "tips",
+    "tanggal": "2026-08-02",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "peluang_statistika"
   }
 ]
