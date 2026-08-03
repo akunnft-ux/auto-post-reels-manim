@@ -907,5 +907,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_sd"
+  },
+  {
+    "soal": "Tentukan titik potong fungsi kuadrat f(x) = x² - 5x + 6 dengan sumbu-x tanpa memfaktorkan.",
+    "jawaban": "C. Mencari dua angka yang dijumlah 5 & dikali 6",
+    "topik": "fungsi_grafik",
+    "content_type": "tips",
+    "tanggal": "2026-08-03",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "fungsi_grafik"
   }
 ]
