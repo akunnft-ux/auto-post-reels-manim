@@ -917,5 +917,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "fungsi_grafik"
+  },
+  {
+    "soal": "Berapakah hasil penjumlahan deret tak hingga 1 + 2 + 4 + 8 + ... dalam sistem bilangan p-adik?",
+    "jawaban": "-1",
+    "topik": "deret_angka",
+    "content_type": "fakta",
+    "tanggal": "2026-08-03",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
