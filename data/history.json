@@ -937,5 +937,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_sd"
+  },
+  {
+    "soal": "Tahukah kamu bahwa angka 0 sebenarnya tidak memiliki nilai genap atau ganjil?",
+    "jawaban": "0 adalah bilangan genap",
+    "topik": "ujian_sekolah_sd",
+    "content_type": "fakta",
+    "tanggal": "2026-08-04",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_sd"
   }
 ]
