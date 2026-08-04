@@ -927,5 +927,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Angka berapa yang jika dikalikan dengan dirinya sendiri, hasilnya adalah jumlah dari angka 1 sampai 100?",
+    "jawaban": "70",
+    "topik": "olimpiade_sd",
+    "content_type": "fakta",
+    "tanggal": "2026-08-04",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_sd"
   }
 ]
