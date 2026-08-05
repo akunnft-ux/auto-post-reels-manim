@@ -957,5 +957,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "deret_angka"
+  },
+  {
+    "soal": "Berapakah nilai dari 2024² - 2023² tanpa menghitung kuadratnya?",
+    "jawaban": "C. Menggunakan selisih dua kuadrat",
+    "topik": "olimpiade_smp",
+    "content_type": "tips",
+    "tanggal": "2026-08-05",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "olimpiade_smp"
   }
 ]
