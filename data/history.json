@@ -947,5 +947,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_sd"
+  },
+  {
+    "soal": "Tentukan angka berikutnya dalam deret: 2, 6, 12, 20, 30, ...",
+    "jawaban": "B. 42",
+    "topik": "deret_angka",
+    "content_type": "quiz",
+    "tanggal": "2026-08-05",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "deret_angka"
   }
 ]
