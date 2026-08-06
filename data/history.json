@@ -967,5 +967,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "olimpiade_smp"
+  },
+  {
+    "soal": "Berapakah hasil dari 25 x 12?",
+    "jawaban": "C. Kalikan dengan 10, lalu tambah 2x",
+    "topik": "tka_sd",
+    "content_type": "tips",
+    "tanggal": "2026-08-06",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "tka_sd"
   }
 ]
