@@ -987,5 +987,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "ujian_sekolah_smp"
+  },
+  {
+    "soal": "Jika f(x) = 3 - x², manakah pernyataan yang benar mengenai grafik f(x)?",
+    "jawaban": "B. Titik puncak di (0, 3)",
+    "topik": "fungsi_grafik",
+    "content_type": "quiz",
+    "tanggal": "2026-08-07",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "fungsi_grafik"
   }
 ]
