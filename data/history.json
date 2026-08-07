@@ -977,5 +977,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "tka_sd"
+  },
+  {
+    "soal": "Tentukan hasil dari 25% dari 80 tanpa kalkulator.",
+    "jawaban": "C. Bagi 80 dengan 4",
+    "topik": "ujian_sekolah_smp",
+    "content_type": "tips",
+    "tanggal": "2026-08-07",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "ujian_sekolah_smp"
   }
 ]
