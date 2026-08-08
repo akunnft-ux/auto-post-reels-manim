@@ -997,5 +997,15 @@
     "account_type": "personal",
     "format": "manim",
     "theme": "fungsi_grafik"
+  },
+  {
+    "soal": "Berapakah hasil dari penjumlahan tak hingga 1 + 2 + 3 + 4 + ... dalam teori bilangan?",
+    "jawaban": "-¹⁄₁₂",
+    "topik": "aritmatika_aljabar",
+    "content_type": "fakta",
+    "tanggal": "2026-08-08",
+    "account_type": "personal",
+    "format": "manim",
+    "theme": "aritmatika_aljabar"
   }
 ]
